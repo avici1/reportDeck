@@ -19,6 +19,7 @@ app.use('/api/std',std);
 app.use('/api/section',section);
 app.use('/api/ct',courseTeacher);
 app.use(bodyParser.urlencoded({ extended: false }));
+
 const port = process.env.PORT || 8003;
 
 app.get('*', (req, res) => res.status(200).send({

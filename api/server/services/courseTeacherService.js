@@ -52,7 +52,7 @@ class courseTeacherService {
     }
     static async getOne_(id) {
         try {
-            const foundTerm = await database.courseTeacher.findOne({
+            const foundTerm = await database.courseTeacher.findAll({
                 where: {
                     classId: id
                 }
