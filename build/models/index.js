@@ -16,7 +16,7 @@ var _sequelize = _interopRequireDefault(require("sequelize"));
 var basename = (0, _path.basename)(__filename);
 var env = process.env.NODE_ENV || 'development';
 
-var config = require(__dirname + '/../config/config.json')[env];
+var config = require(__dirname + '/../config/config.js')[env];
 
 var db = {};
 var sequelize;
