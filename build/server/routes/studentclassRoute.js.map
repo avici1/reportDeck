@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../api/server/routes/studentclassRoute.js"],"names":[],"mappings":";;AAAA","sourcesContent":["import { Router } from 'express';\n//import studentCtrl from '../controllers/'"],"file":"studentclassRoute.js"}

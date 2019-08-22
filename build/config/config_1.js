@@ -9,7 +9,12 @@ require('dotenv').config();
 
 var _default = {
   "development": {
-    "use_env_variable": "DATABASE_URL"
+    "username": "rooter",
+    "password": "83lK3PwPS3UcM8iw",
+    "database": "report_deck_dev",
+    "host": "localhost",
+    "dialect": "mysql",
+    "operatorsAliases": false
   },
   // "test": {
   //   "username": "root",

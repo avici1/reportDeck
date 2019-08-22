@@ -35,7 +35,7 @@ describe('Testing endpoints', function () {
       done();
     });
   });
-  it(' should get all classes', function (done) {
+  it('should get all classes', function (done) {
     _chai["default"].request(_index["default"]).get('/api/class').set('Accept', 'application/json').end(function (err, res) {
       expect(res.status).to.equal(200);
       res.body.data[0].should.have.property('id');
@@ -163,6 +163,92 @@ describe('Testing endpoints', function () {
     });
 
     done();
+  });
+  it('should add a staff', function (done) {
+    var newStaff = {
+      "staffId": "44-ange",
+      "staffNames": "Angelique uwimana",
+      "staffTitle": "Computer science teacher"
+    };
+
+    _chai["default"].request(_index["default"]).post('/api/staff').send(newStaff).set('Accept', 'application/json').end(function (err, res) {
+      expect(res.status).to.equal(200);
+      expect(res.body.data).to.include({
+        "staffId": newStaff.staffId,
+        "staffNames": newStaff.staffNames,
+        "staffTitle": newStaff.staffTitle
+      });
+    });
+
+    done();
+  });
+  it('should not  add a staff with incomplete information', function (done) {
+    var newStaff = {
+      "staffId": "444-st"
+    };
+
+    _chai["default"].request(_index["default"]).post('/api/staff').send(newStaff).set('Accept', 'application/json').end(function (err, res) {
+      expect(res.status).to.equal(400);
+      res.body.should.have.property("message").eql("Please send complete information");
+    });
+
+    done();
+  });
+  it('should update a staff', function (done) {
+    var id = 1;
+    var updatedStaff = {
+      "staffId": "3434",
+      "staffNames": "Alain Christian",
+      "staffTitle": "CS Teacher"
+    };
+
+    _chai["default"].request(_index["default"]).put("/api/staff/".concat(id)).send(updatedStaff).set('Accept', 'application/json').end(function (err, res) {
+      expect(res.status).to.equal(200);
+      expect(res.body).to.include({
+        "staffId": updatedStaff.staffId,
+        "staffNames": updatedStaff.staffNames,
+        "staffTitle": updatedStaff.staffTitle
+      });
+    });
+
+    done();
+  });
+  it('should not update a staff with empty body', function (done) {
+    var id = '34';
+    var updatedStaff_ = {};
+
+    _chai["default"].request(_index["default"]).put("/api/staff/".concat(id)).set('Accept', 'application/json').send(updatedStaff_).end(function (err, res) {
+      expect(res.status).to.equal(400);
+      res.body.should.have.property("message").eql("You sent empty body");
+    });
+
+    done();
+  });
+  it('should get all staff', function (done) {
+    _chai["default"].request(_index["default"]).get('/api/staff/').set('Accept', 'application/json').end(function (err, res) {
+      expect(res.status).to.equal(200);
+      res.body.should.have.property('message').eql('Staff found successfully');
+      res.body.data[0].should.have.property('staffId');
+      res.body.data[0].should.have.property('staffNames');
+      res.body.data[0].should.have.property('staffTitle');
+      done();
+    });
+  });
+  it('should delete a staff', function (done) {
+    var id = '1';
+
+    _chai["default"].request(_index["default"])["delete"]("/api/staff/".concat(id)).set('Accept', 'application/json').end(function (err, res) {
+      expect(res.status).to.equal(200);
+      res.body.should.have.property('message').eql("Staff with Id ".concat(id, " deleted succefully"));
+    });
+  });
+  it('should not delete a staff with invalid search parameter', function (done) {
+    var id = '';
+
+    _chai["default"].request(_index["default"])["delete"]("/api/staff/".concat(id)).set('Accept', 'application/json').end(function (err, res) {
+      expect(res.status).to.equal(404);
+      res.body.should.have.property('message').eql("Staff with Id ".concat(id, " not found"));
+    });
   });
 }); //Tests written with chai and mocha packages;
 //each endpoint has atleast 3 states some not every state was tested atleat 2 at each endpoint

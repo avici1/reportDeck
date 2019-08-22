@@ -7,6 +7,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
+
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
@@ -21,17 +23,17 @@ var _sequelize = _interopRequireDefault(require("sequelize"));
 
 var op = _sequelize["default"].Op;
 
-var classService =
+var staffService =
 /*#__PURE__*/
 function () {
-  function classService() {
-    (0, _classCallCheck2["default"])(this, classService);
+  function staffService() {
+    (0, _classCallCheck2["default"])(this, staffService);
   }
 
-  (0, _createClass2["default"])(classService, null, [{
-    key: "getAllClasses",
+  (0, _createClass2["default"])(staffService, null, [{
+    key: "GetAllStaff",
     value: function () {
-      var _getAllClasses = (0, _asyncToGenerator2["default"])(
+      var _GetAllStaff = (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
       _regenerator["default"].mark(function _callee() {
         return _regenerator["default"].wrap(function _callee$(_context) {
@@ -40,7 +42,7 @@ function () {
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return _models["default"].Classes.findAll();
+                return _models["default"].Staff.findAll();
 
               case 3:
                 return _context.abrupt("return", _context.sent);
@@ -58,40 +60,44 @@ function () {
         }, _callee, null, [[0, 6]]);
       }));
 
-      function getAllClasses() {
-        return _getAllClasses.apply(this, arguments);
+      function GetAllStaff() {
+        return _GetAllStaff.apply(this, arguments);
       }
 
-      return getAllClasses;
+      return GetAllStaff;
     }()
   }, {
-    key: "getOneClass",
+    key: "SearchStaff",
     value: function () {
-      var _getOneClass = (0, _asyncToGenerator2["default"])(
+      var _SearchStaff = (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
-      _regenerator["default"].mark(function _callee2(id) {
-        var ClassToFind;
+      _regenerator["default"].mark(function _callee2(searchParam) {
+        var staff;
         return _regenerator["default"].wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.prev = 0;
                 _context2.next = 3;
-                return _models["default"].Classes.findOne({
-                  where: {
-                    classId: id
-                  }
+                return _models["default"].Staff.findAll({
+                  where: (0, _defineProperty2["default"])({}, op.or, [{
+                    staffId: (0, _defineProperty2["default"])({}, op.like, '%' + searchParam + '%')
+                  }, {
+                    staffNames: (0, _defineProperty2["default"])({}, op.like, '%' + searchParam + '%')
+                  }, {
+                    staffTitle: (0, _defineProperty2["default"])({}, op.like, '%' + searchParam + '%')
+                  }])
                 });
 
               case 3:
-                ClassToFind = _context2.sent;
+                staff = _context2.sent;
 
-                if (!ClassToFind) {
+                if (!staff) {
                   _context2.next = 6;
                   break;
                 }
 
-                return _context2.abrupt("return", ClassToFind);
+                return _context2.abrupt("return", staff);
 
               case 6:
                 return _context2.abrupt("return", null);
@@ -109,25 +115,25 @@ function () {
         }, _callee2, null, [[0, 9]]);
       }));
 
-      function getOneClass(_x) {
-        return _getOneClass.apply(this, arguments);
+      function SearchStaff(_x) {
+        return _SearchStaff.apply(this, arguments);
       }
 
-      return getOneClass;
+      return SearchStaff;
     }()
   }, {
-    key: "AddClass",
+    key: "AddStaff",
     value: function () {
-      var _AddClass = (0, _asyncToGenerator2["default"])(
+      var _AddStaff = (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
-      _regenerator["default"].mark(function _callee3(newClass) {
+      _regenerator["default"].mark(function _callee3(newStaff) {
         return _regenerator["default"].wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.prev = 0;
                 _context3.next = 3;
-                return _models["default"].Classes.create(newClass);
+                return _models["default"].Staff.create(newStaff);
 
               case 3:
                 return _context3.abrupt("return", _context3.sent);
@@ -145,48 +151,48 @@ function () {
         }, _callee3, null, [[0, 6]]);
       }));
 
-      function AddClass(_x2) {
-        return _AddClass.apply(this, arguments);
+      function AddStaff(_x2) {
+        return _AddStaff.apply(this, arguments);
       }
 
-      return AddClass;
+      return AddStaff;
     }()
   }, {
-    key: "updateClass",
+    key: "UpdateStaff",
     value: function () {
-      var _updateClass = (0, _asyncToGenerator2["default"])(
+      var _UpdateStaff = (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
-      _regenerator["default"].mark(function _callee4(id, newClass) {
-        var classToUpdate;
+      _regenerator["default"].mark(function _callee4(id, newStaff) {
+        var StaffToUpdate;
         return _regenerator["default"].wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
                 _context4.prev = 0;
                 _context4.next = 3;
-                return _models["default"].Classes.findOne({
+                return _models["default"].Staff.findOne({
                   where: {
-                    classId: id
+                    staffId: id
                   }
                 });
 
               case 3:
-                classToUpdate = _context4.sent;
+                StaffToUpdate = _context4.sent;
 
-                if (!(Object.values(classToUpdate).length >= 1)) {
+                if (!StaffToUpdate) {
                   _context4.next = 8;
                   break;
                 }
 
                 _context4.next = 7;
-                return _models["default"].Classes.update(newClass, {
+                return _models["default"].Staff.update(newStaff, {
                   where: {
-                    classId: id
+                    staffId: id
                   }
                 });
 
               case 7:
-                return _context4.abrupt("return", newClass);
+                return _context4.abrupt("return", newStaff);
 
               case 8:
                 return _context4.abrupt("return", null);
@@ -204,75 +210,76 @@ function () {
         }, _callee4, null, [[0, 11]]);
       }));
 
-      function updateClass(_x3, _x4) {
-        return _updateClass.apply(this, arguments);
+      function UpdateStaff(_x3, _x4) {
+        return _UpdateStaff.apply(this, arguments);
       }
 
-      return updateClass;
+      return UpdateStaff;
     }()
   }, {
-    key: "deleteClass",
+    key: "DeleteStaff",
     value: function () {
-      var _deleteClass = (0, _asyncToGenerator2["default"])(
+      var _DeleteStaff = (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
       _regenerator["default"].mark(function _callee5(id) {
-        var classToDelete;
+        var staffToDelete;
         return _regenerator["default"].wrap(function _callee5$(_context5) {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
                 _context5.prev = 0;
                 _context5.next = 3;
-                return _models["default"].Classes.findOne({
+                return _models["default"].Staff.findOne({
                   where: {
-                    classId: id
+                    staffId: id
                   }
                 });
 
               case 3:
-                classToDelete = _context5.sent;
+                staffToDelete = _context5.sent;
 
-                if (!classToDelete) {
+                if (!staffToDelete) {
                   _context5.next = 8;
                   break;
                 }
 
                 _context5.next = 7;
-                return _models["default"].Classes.destroy({
+                return _models["default"].Staff.destroy({
                   where: {
-                    classId: id
+                    staffid: id
                   }
                 });
 
               case 7:
-                return _context5.abrupt("return", classToDelete);
+                return _context5.abrupt("return", _context5.sent);
 
               case 8:
-                return _context5.abrupt("return", null);
+                _context5.next = 13;
+                break;
 
-              case 11:
-                _context5.prev = 11;
+              case 10:
+                _context5.prev = 10;
                 _context5.t0 = _context5["catch"](0);
                 throw _context5.t0;
 
-              case 14:
+              case 13:
               case "end":
                 return _context5.stop();
             }
           }
-        }, _callee5, null, [[0, 11]]);
+        }, _callee5, null, [[0, 10]]);
       }));
 
-      function deleteClass(_x5) {
-        return _deleteClass.apply(this, arguments);
+      function DeleteStaff(_x5) {
+        return _DeleteStaff.apply(this, arguments);
       }
 
-      return deleteClass;
+      return DeleteStaff;
     }()
   }]);
-  return classService;
+  return staffService;
 }();
 
-var _default = classService;
+var _default = staffService;
 exports["default"] = _default;
-//# sourceMappingURL=classServices.js.map
+//# sourceMappingURL=staffServices.js.map
