@@ -25,8 +25,11 @@ var _courseTeacherRoutes = _interopRequireDefault(require("./server/routes/cours
 
 var _staffRoutes = _interopRequireDefault(require("./server/routes/staffRoutes"));
 
+var _cors = _interopRequireDefault(require("cors"));
+
 var app = (0, _express["default"])();
 app.use(_bodyParser["default"].json());
+app.use((0, _cors["default"])());
 app.use('/api', _classRouter["default"]);
 app.use('/api/staff', _staffRoutes["default"]);
 app.use('/api/stdp', _studentParameterRouter["default"]);

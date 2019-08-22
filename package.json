@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run build && node ./build/index.js",
+    "start": "node ./build/index.js",
     "dev": "nodemon --exec babel-node ./api/index.js",
     "test": "export NODE_ENV=test &&  sequelize db:migrate:undo:all  && sequelize db:migrate  && nyc --require @babel/register  mocha ./api/test/test.js --timeout 20000 --exit",
     "build": "rm -rf ./build && babel -d ./build ./api -s",
@@ -41,6 +41,7 @@
     "pdf-lib": "^1.0.1",
     "pdfmake": "^0.1.58",
     "pg": "^7.12.0",
+    "cors":"^2.8.5",
     "pg-hstore": "^2.3.3",
     "read-excel-file": "^4.0.2",
     "sequelize": "^5.12.3"
