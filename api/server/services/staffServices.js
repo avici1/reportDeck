@@ -51,9 +51,9 @@ class staffService {
     }
     static async DeleteStaff(id) {
         try {
-            const staffToDelete = await database.Staff.findOne({ where: { id: Number(id) } });
+            const staffToDelete = await database.Staff.findOne({ where: { staffId: id } });
             if (staffToDelete) {
-                return await database.Staff.destroy({ where: { staffid: Number(id) } });
+                return await database.Staff.destroy({ where: { staffid:id } });
             }
         } catch (error) {
             throw error;

@@ -8,7 +8,7 @@ class termController {
     static async getAll(req, res) {
         try {
             const all = await termService.getAll();
-            if (!all) {
+            if (Object.values(all).length < 1) {
                 util.setError(400, "Records can't be found");
                 return util.send(res);
             } else {
@@ -52,7 +52,9 @@ class termController {
         }
     }
     static async updateTerm(req, res) {
-        const { id } = req.params;
+        const {
+            id
+        } = req.params;
         const updated = req.body;
 
         try {
@@ -80,17 +82,24 @@ class termController {
     }
     static async addNewRecord(req, res) {
         try {
-            const body = req.body;
-            const added = await termService.addNew(body);
-            if (!added) {
-                util.setError(400, "Something went wrong");
+            const newRecord = req.body;
+            const lookUp = await termService.getOneComplex(req.query.classId, req.query.term, req.query.studentId, req.query.course);
+            if (Object.values(lookUp).length >= 1) {
+                util.setError(404, `can't add this record as it exists already`);
                 return util.send(res);
             } else {
-                util.setSuccess("Saved successfully", 200, added);
-                return util.send(res);
+                const added = await termService.addNew(newRecord);
+                if (Object.values(added).length >= 1) {
+                    util.setSuccess("Added successfully", 200, added);
+                    return util.send(res);
+                } else {
+                    util.setError(400, "Can't add new record");
+                    return util.send(res);
+                }
             }
         } catch (error) {
-            util.setError(400, error.message);
+
+            util.setError(400, `Oops something went wrong >> ${error.message}`);
             return util.send(res);
         }
     }

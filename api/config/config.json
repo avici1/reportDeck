@@ -1,18 +1,18 @@
 {
   "development": {
     "username": "rooter",
-    "password": "nAdia123",
+    "password": "83lK3PwPS3UcM8iw",
     "database": "report_deck_dev",
-    "host": "127.0.0.1",
-    "dialect": "postgres",
+    "host": "localhost",
+    "dialect": "mysql",
     "operatorsAliases": false
   },
   "test": {
     "username": "rooter",
-    "password": "nAdia123",
+    "password": "83lK3PwPS3UcM8iw",
     "database": "report_deck_test",
-    "host": "127.0.0.1",
-    "dialect": "postgres",
+    "host": "localhost",
+    "dialect": "mysql",
     "operatorsAliases": false
   },
   "production": {

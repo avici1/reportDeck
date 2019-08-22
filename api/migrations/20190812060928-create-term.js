@@ -23,6 +23,18 @@ module.exports = {
       exam: {
         type: Sequelize.INTEGER
       },
+      classId:{
+        type:Sequelize.STRING
+      },
+      course:{
+        type:Sequelize.STRING
+      },
+      term:{
+        type:Sequelize.STRING
+      },
+      birthDate:{
+        type:Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

@@ -1,26 +1,22 @@
 import database from '../../models';
 import sequelize from 'sequelize';
 const op = sequelize.Op;
-class classService{
-    static async getAllClasses(){
+class classService {
+    static async getAllClasses() {
         try {
             return await database.Classes.findAll();
         } catch (error) {
             throw error;
         }
     }
-    static async getOneClass(id){
+    static async getOneClass(id) {
         try {
-            const ClassToFind = await database.Classes.findAll({
+            const ClassToFind = await database.Classes.findOne({
                 where: {
-                  classYear: { [op.like]: '%' + id + '%' },
-                  classId: { [op.like]: '%' + id + '%' },
-                  classMasterTeacher:{ [op.like]: '%' + id + '%' },
-                  classSection:{[op.like]: '%' + id +'%'},
-                  classLevel:{ [op.like]: '%' + id + '%' }
+                    classId: id
                 }
-              });
-            if(ClassToFind){
+            });
+            if (ClassToFind) {
                 return ClassToFind;
             }
             return null;
@@ -28,20 +24,26 @@ class classService{
             throw error;
         }
     }
-    static async AddClass(newClass){
-        try{
+    static async AddClass(newClass) {
+        try {
             return await database.Classes.create(newClass);
-        }catch(error){
+        } catch (error) {
             throw error;
         }
     }
-    static async updateClass(id, newClass){
+    static async updateClass(id, newClass) {
         try {
             const classToUpdate = await database.Classes.findOne({
-                where: {id:Number(id)}
+                where: {
+                    classId: id
+                }
             });
-            if(classToUpdate){
-                await database.Classes.update(newClass,{where:{id:Number(id)}});
+            if (Object.values(classToUpdate).length >= 1) {
+                await database.Classes.update(newClass, {
+                    where: {
+                        classId: id
+                    }
+                });
                 return newClass;
             }
             return null;
@@ -49,13 +51,19 @@ class classService{
             throw error;
         }
     }
-    static async deleteClass(id){
+    static async deleteClass(id) {
         try {
             const classToDelete = await database.Classes.findOne({
-                where: {id:Number(id)}
+                where: {
+                    classId: id
+                }
             });
-            if(classToDelete){
-                await database.Classes.destroy({where:{id:Number(id)}});
+            if (classToDelete) {
+                await database.Classes.destroy({
+                    where: {
+                        classId: id
+                    }
+                });
                 return classToDelete;
             }
             return null;

@@ -5,7 +5,7 @@ class termServices{
     static async addNew(newEntry){
         try {
             const added = await database.Term.create(newEntry);
-            if(added){
+            if(Object.values(added).length > 1){
                 return added;
             }
             return null;
@@ -60,6 +60,27 @@ class termServices{
                 return foundTerm;
             }
             return null;
+        } catch (error) {
+            throw error;
+        }
+    }
+    static async getOneComplex(classId_n,term_n,studentId_n,course_n){
+        try {
+            const foundTerm = await database.Term.findAll({
+                where :{
+                    [op.and] : [
+                        {classId:classId_n},
+                        {studentId:studentId_n},
+                        {term:term_n},
+                        {course:course_n}
+                    ]
+                }
+            });
+            if(Object.values(foundTerm).length >=1){
+                return foundTerm;
+            }else{
+                return null;
+            }
         } catch (error) {
             throw error;
         }

@@ -91,7 +91,7 @@ class staffController {
     }
     static async deleteStaff(req, res) {
         const { id } = req.params;
-        if (!Number(id)) {
+        if (!id) {
             util.setError(404, 'Please provide a valid parameter');
             return util.send(res);
         } else {
