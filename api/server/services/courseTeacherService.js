@@ -56,6 +56,7 @@ class courseTeacherService {
     static async getOne_(id) {
         try {
             const foundTerm = await database.courseTeacher.findAll({
+                attributes : { exclude : ['id','createdAt','updatedAt','classId']},
                 where: {
                     classId: id
                 }

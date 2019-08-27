@@ -229,6 +229,9 @@ function () {
                 _context5.prev = 0;
                 _context5.next = 3;
                 return _models["default"].courseTeacher.findAll({
+                  attributes: {
+                    exclude: ['id', 'createdAt', 'updatedAt', 'classId']
+                  },
                   where: {
                     classId: id
                   }
