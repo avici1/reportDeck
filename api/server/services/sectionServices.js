@@ -34,6 +34,19 @@ class sectionsService{
             throw error;
         }
     }
+    static async get_defined_sections(){
+        try {
+            const sections = await database.sections.findAll({
+                attributes : ['sectionId', 'sectionName']
+            });
+            if(sections){
+                return sections;
+            }
+            return null;
+        } catch (error) {
+            throw error;
+        }
+    }
     static async getAll(){
         try {
             return await database.sections.findAll();

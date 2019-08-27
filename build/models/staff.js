@@ -11,5 +11,5 @@ module.exports = function (sequelize, DataTypes) {
   };
 
   return Staff;
-};
+}; //4012111413572
 //# sourceMappingURL=staff.js.map

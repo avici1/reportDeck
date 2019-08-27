@@ -83,59 +83,58 @@ function () {
       return getAll;
     }()
   }, {
-    key: "getParticular",
+    key: "getParticulars",
     value: function () {
-      var _getParticular = (0, _asyncToGenerator2["default"])(
+      var _getParticulars = (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
       _regenerator["default"].mark(function _callee2(req, res) {
-        var id, one;
+        var one;
         return _regenerator["default"].wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.prev = 0;
-                id = req.params;
-                _context2.next = 4;
-                return _termServices["default"].getOne(id);
+                _context2.next = 3;
+                return _termServices["default"].getOneComplex(req.body.id, req.body.term, req.body.studentId, req.body.course);
 
-              case 4:
+              case 3:
                 one = _context2.sent;
 
                 if (one) {
-                  _context2.next = 10;
+                  _context2.next = 9;
                   break;
                 }
 
                 util.setError(400, "Term can't be found");
                 return _context2.abrupt("return", util.send(res));
 
-              case 10:
+              case 9:
                 util.setSuccess("Term found", 200, one);
                 return _context2.abrupt("return", util.send(res));
 
-              case 12:
-                _context2.next = 18;
+              case 11:
+                _context2.next = 17;
                 break;
 
-              case 14:
-                _context2.prev = 14;
+              case 13:
+                _context2.prev = 13;
                 _context2.t0 = _context2["catch"](0);
                 util.setError(400, _context2.t0.message);
                 return _context2.abrupt("return", util.send(res));
 
-              case 18:
+              case 17:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[0, 14]]);
+        }, _callee2, null, [[0, 13]]);
       }));
 
-      function getParticular(_x3, _x4) {
-        return _getParticular.apply(this, arguments);
+      function getParticulars(_x3, _x4) {
+        return _getParticulars.apply(this, arguments);
       }
 
-      return getParticular;
+      return getParticulars;
     }()
   }, {
     key: "deleteTerm",
@@ -149,7 +148,7 @@ function () {
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.prev = 0;
-                id = req.params;
+                id = req.params.id;
                 _context3.next = 4;
                 return _termServices["default"].deleter(id);
 
@@ -169,14 +168,16 @@ function () {
                 return _context3.abrupt("return", util.send(res));
 
               case 12:
-                _context3.next = 16;
+                _context3.next = 18;
                 break;
 
               case 14:
                 _context3.prev = 14;
                 _context3.t0 = _context3["catch"](0);
+                util.setError(400, _context3.t0.message);
+                return _context3.abrupt("return", util.send(res));
 
-              case 16:
+              case 18:
               case "end":
                 return _context3.stop();
             }
@@ -262,62 +263,48 @@ function () {
       var _addNewRecord = (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
       _regenerator["default"].mark(function _callee5(req, res) {
-        var newRecord, lookUp, added;
+        var newRecord, added;
         return _regenerator["default"].wrap(function _callee5$(_context5) {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
                 _context5.prev = 0;
-                newRecord = req.body;
+                newRecord = req.body; //  const lookUp = await termService.getOneComplex(req.query.classId, req.query.term, req.query.studentId, req.query.course);
+
                 _context5.next = 4;
-                return _termServices["default"].getOneComplex(req.query.classId, req.query.term, req.query.studentId, req.query.course);
-
-              case 4:
-                lookUp = _context5.sent;
-
-                if (!(Object.values(lookUp).length >= 1)) {
-                  _context5.next = 10;
-                  break;
-                }
-
-                util.setError(404, "can't add this record as it exists already");
-                return _context5.abrupt("return", util.send(res));
-
-              case 10:
-                _context5.next = 12;
                 return _termServices["default"].addNew(newRecord);
 
-              case 12:
+              case 4:
                 added = _context5.sent;
 
                 if (!(Object.values(added).length >= 1)) {
-                  _context5.next = 18;
+                  _context5.next = 10;
                   break;
                 }
 
                 util.setSuccess("Added successfully", 200, added);
                 return _context5.abrupt("return", util.send(res));
 
-              case 18:
+              case 10:
                 util.setError(400, "Can't add new record");
                 return _context5.abrupt("return", util.send(res));
 
-              case 20:
-                _context5.next = 26;
+              case 12:
+                _context5.next = 18;
                 break;
 
-              case 22:
-                _context5.prev = 22;
+              case 14:
+                _context5.prev = 14;
                 _context5.t0 = _context5["catch"](0);
                 util.setError(400, "Oops something went wrong >> ".concat(_context5.t0.message));
                 return _context5.abrupt("return", util.send(res));
 
-              case 26:
+              case 18:
               case "end":
                 return _context5.stop();
             }
           }
-        }, _callee5, null, [[0, 22]]);
+        }, _callee5, null, [[0, 14]]);
       }));
 
       function addNewRecord(_x9, _x10) {

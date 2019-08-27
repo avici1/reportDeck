@@ -15,7 +15,7 @@ class termServices{
     }
     static async deleter(id){
         try {
-            const deleted = await database.Term.destroy({where:{studentId:id}});
+            const deleted = await database.Term.destroy({where:{id:id}});
             if(deleted){
                 return deleted;
             }
@@ -26,7 +26,7 @@ class termServices{
     }
     static async updater(id,updated_){
         try {
-            const updated = await database.Term.update(updated_,{where:{studentId:id}});
+            const updated = await database.Term.update(updated_,{where:{id:id}});
             if(updated){
                 return updated;
             }
@@ -37,33 +37,17 @@ class termServices{
     }
     static async getAll(){
         try {
-            return await database.Term.findAll();
+            return await database.Term.findAll({
+                attributes : {
+                    exclude : ['classId','createdAt','updatedAt']
+                }
+            });
 
         } catch (error) {
             throw error;
         }
     }
-    static async getOne(searchParam){
-        try {
-            const foundTerm = await database.Term.findAll({
-                where : {
-                    [op.or] : [
-                        {studentId : { [op.like]: '%' + searchParam + '%' }},
-                        {maxTj : { [op.like]: '%' + searchParam + '%' }},
-                        {tj : { [op.like]: '%' + searchParam + '%' }},
-                        {maxExam : { [op.like]: '%' + searchParam + '%' }},
-                        {exam : { [op.like]: '%' + searchParam + '%' }},
-                    ]
-                }
-            });
-            if(foundTerm){
-                return foundTerm;
-            }
-            return null;
-        } catch (error) {
-            throw error;
-        }
-    }
+    
     static async getOneComplex(classId_n,term_n,studentId_n,course_n){
         try {
             const foundTerm = await database.Term.findAll({

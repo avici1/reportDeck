@@ -4,6 +4,7 @@ import staffController from '../controllers/staffController';
 const router = Router();
 
 router.get('/',staffController.getListStaff);
+router.get('/t',staffController.getTeachers);
 router.post('/',staffController.AddNewStaff);
 router.get('/:id',staffController.searchStaff);
 router.put('/:id',staffController.updateStaff);

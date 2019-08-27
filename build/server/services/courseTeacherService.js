@@ -179,28 +179,34 @@ function () {
       var _getAll = (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
       _regenerator["default"].mark(function _callee4() {
+        var raw;
         return _regenerator["default"].wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
                 _context4.prev = 0;
                 _context4.next = 3;
-                return _models["default"].courseTeacher.findAll();
+                return _models["default"].courseTeacher.findAll({
+                  attributes: {
+                    exclude: ['id', 'createdAt', 'updatedAt', 'classId']
+                  }
+                });
 
               case 3:
-                return _context4.abrupt("return", _context4.sent);
+                raw = _context4.sent;
+                return _context4.abrupt("return", raw);
 
-              case 6:
-                _context4.prev = 6;
+              case 7:
+                _context4.prev = 7;
                 _context4.t0 = _context4["catch"](0);
                 throw _context4.t0;
 
-              case 9:
+              case 10:
               case "end":
                 return _context4.stop();
             }
           }
-        }, _callee4, null, [[0, 6]]);
+        }, _callee4, null, [[0, 7]]);
       }));
 
       function getAll() {
@@ -222,7 +228,7 @@ function () {
               case 0:
                 _context5.prev = 0;
                 _context5.next = 3;
-                return _models["default"].courseTeacher.findOne({
+                return _models["default"].courseTeacher.findAll({
                   where: {
                     classId: id
                   }

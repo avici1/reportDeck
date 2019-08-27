@@ -31,20 +31,34 @@ class sectionsController {
                 return util.send(res);
             }
         } catch (error) {
-            errorerror
             util.setError(400, "an error occured " + error.message);
+            return util.send(res);
+        }
+    }
+    static async get_specific_sections(req,res){
+        try {
+            const sections = await sectionService.get_defined_sections();
+            if(Object.values(sections).length >=1){
+                util.setSuccess(" Found sections", 200,sections);
+                return util.send(res);
+            }else{
+                util.setError(" Sections weren't found at all ");
+                return util.send(res);
+            }
+        } catch (error) {
+            util.setError(400, `an error occured  ${error.message}`);
             return util.send(res);
         }
     }
     static async adder(req, res) {
         try {
             const data = req.body;
-            if ((Object.values(data).length < 5) == false) {
+            if ((Object.values(data).length < 3) == false) {
                 const added = await sectionService.addNew(data);
                 util.setSuccess("Added successfully", 200, added);
                 return util.send(res);
             } else {
-                util.setError(400, "can't add");
+                util.setError(400, "can't add some missing fields");
                 return util.send(res);
             }
         } catch (error) {

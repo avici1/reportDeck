@@ -13,6 +13,7 @@ var _express = require("express");
 
 var router = (0, _express.Router)();
 router.get('/', _sectionController["default"].getAll);
+router.get('/sp', _sectionController["default"].get_specific_sections);
 router.get('/:schoolId', _sectionController["default"].getOne);
 router.post('/', _sectionController["default"].adder);
 router.put('/:sectionId', _sectionController["default"].udpdate);

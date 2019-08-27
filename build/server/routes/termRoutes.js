@@ -14,10 +14,10 @@ var _termController = _interopRequireDefault(require("../controllers/termControl
 // import router from './classRouter';
 var route = (0, _express.Router)();
 route.get('/', _termController["default"].getAll);
-route.get('/:id', _termController["default"].getParticular);
+route.get('/:id/:term/:course', _termController["default"].getParticulars);
 route.put('/:id', _termController["default"].updateTerm);
 route["delete"]('/:id', _termController["default"].deleteTerm);
-route.post('/:search', _termController["default"].addNewRecord);
+route.post('/', _termController["default"].addNewRecord);
 var _default = route;
 exports["default"] = _default;
 //# sourceMappingURL=termRoutes.js.map

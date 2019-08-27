@@ -174,33 +174,82 @@ function () {
       return updater;
     }()
   }, {
-    key: "getAll",
+    key: "get_defined_sections",
     value: function () {
-      var _getAll = (0, _asyncToGenerator2["default"])(
+      var _get_defined_sections = (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
       _regenerator["default"].mark(function _callee4() {
+        var sections;
         return _regenerator["default"].wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
                 _context4.prev = 0;
                 _context4.next = 3;
-                return _models["default"].sections.findAll();
+                return _models["default"].sections.findAll({
+                  attributes: ['sectionId', 'sectionName']
+                });
 
               case 3:
-                return _context4.abrupt("return", _context4.sent);
+                sections = _context4.sent;
+
+                if (!sections) {
+                  _context4.next = 6;
+                  break;
+                }
+
+                return _context4.abrupt("return", sections);
 
               case 6:
-                _context4.prev = 6;
+                return _context4.abrupt("return", null);
+
+              case 9:
+                _context4.prev = 9;
                 _context4.t0 = _context4["catch"](0);
                 throw _context4.t0;
 
-              case 9:
+              case 12:
               case "end":
                 return _context4.stop();
             }
           }
-        }, _callee4, null, [[0, 6]]);
+        }, _callee4, null, [[0, 9]]);
+      }));
+
+      function get_defined_sections() {
+        return _get_defined_sections.apply(this, arguments);
+      }
+
+      return get_defined_sections;
+    }()
+  }, {
+    key: "getAll",
+    value: function () {
+      var _getAll = (0, _asyncToGenerator2["default"])(
+      /*#__PURE__*/
+      _regenerator["default"].mark(function _callee5() {
+        return _regenerator["default"].wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _context5.prev = 0;
+                _context5.next = 3;
+                return _models["default"].sections.findAll();
+
+              case 3:
+                return _context5.abrupt("return", _context5.sent);
+
+              case 6:
+                _context5.prev = 6;
+                _context5.t0 = _context5["catch"](0);
+                throw _context5.t0;
+
+              case 9:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5, null, [[0, 6]]);
       }));
 
       function getAll() {
@@ -214,14 +263,14 @@ function () {
     value: function () {
       var _getOne = (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
-      _regenerator["default"].mark(function _callee5(id) {
+      _regenerator["default"].mark(function _callee6(id) {
         var foundTerm;
-        return _regenerator["default"].wrap(function _callee5$(_context5) {
+        return _regenerator["default"].wrap(function _callee6$(_context6) {
           while (1) {
-            switch (_context5.prev = _context5.next) {
+            switch (_context6.prev = _context6.next) {
               case 0:
-                _context5.prev = 0;
-                _context5.next = 3;
+                _context6.prev = 0;
+                _context6.next = 3;
                 return _models["default"].sections.findOne({
                   where: {
                     schoolId: id
@@ -229,29 +278,29 @@ function () {
                 });
 
               case 3:
-                foundTerm = _context5.sent;
+                foundTerm = _context6.sent;
 
                 if (!(Object.values(foundTerm).length >= 1)) {
-                  _context5.next = 6;
+                  _context6.next = 6;
                   break;
                 }
 
-                return _context5.abrupt("return", foundTerm);
+                return _context6.abrupt("return", foundTerm);
 
               case 6:
-                return _context5.abrupt("return", null);
+                return _context6.abrupt("return", null);
 
               case 9:
-                _context5.prev = 9;
-                _context5.t0 = _context5["catch"](0);
-                throw _context5.t0;
+                _context6.prev = 9;
+                _context6.t0 = _context6["catch"](0);
+                throw _context6.t0;
 
               case 12:
               case "end":
-                return _context5.stop();
+                return _context6.stop();
             }
           }
-        }, _callee5, null, [[0, 9]]);
+        }, _callee6, null, [[0, 9]]);
       }));
 
       function getOne(_x5) {

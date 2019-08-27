@@ -1,6 +1,5 @@
 import Util from '../utils/Util';
 import staffService from '../services/staffServices';
-import { PDFInvalidObjectParsingError } from 'pdf-lib';
 const util = new Util();
 
 
@@ -8,7 +7,7 @@ class staffController {
 
     static async getListStaff(req, res) {
         try {
-            const staffList = await staffService.GetAllStaff()
+            const staffList = await staffService.GetAllStaff();
             if (staffList.length > 0) {
                 util.setSuccess("Staff found successfully", 200, staffList);
                 return util.send(res);
@@ -17,7 +16,22 @@ class staffController {
                 return util.send(res);
             }
         } catch (error) {
-            util.setError(400, error.message)
+            util.setError(400, error.message);
+            return util.send(res);
+        }
+    }
+    static async getTeachers(req,res) {
+        try {
+            const teachers = await staffService.searchTeacher();
+            if(Object.values(teachers).length >=1){
+                util.setSuccess("Teachers found success fully",200,teachers);
+                return util.send(res);
+            }else{
+                util.setError(400,"Teachers not found");
+                return util.send(res);
+            }
+        } catch (error) {
+            util.setError(400, `Something went wrong ${error.message}` );
             return util.send(res);
         }
     }

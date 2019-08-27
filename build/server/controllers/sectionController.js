@@ -114,17 +114,16 @@ function () {
                 return _context2.abrupt("return", util.send(res));
 
               case 11:
-                _context2.next = 18;
+                _context2.next = 17;
                 break;
 
               case 13:
                 _context2.prev = 13;
                 _context2.t0 = _context2["catch"](0);
-                errorerror;
                 util.setError(400, "an error occured " + _context2.t0.message);
                 return _context2.abrupt("return", util.send(res));
 
-              case 18:
+              case 17:
               case "end":
                 return _context2.stop();
             }
@@ -139,55 +138,109 @@ function () {
       return getAll;
     }()
   }, {
-    key: "adder",
+    key: "get_specific_sections",
     value: function () {
-      var _adder = (0, _asyncToGenerator2["default"])(
+      var _get_specific_sections = (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
       _regenerator["default"].mark(function _callee3(req, res) {
-        var data, added;
+        var sections;
         return _regenerator["default"].wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.prev = 0;
-                data = req.body;
+                _context3.next = 3;
+                return _sectionServices["default"].get_defined_sections();
 
-                if (!(Object.values(data).length < 5 == false)) {
-                  _context3.next = 10;
+              case 3:
+                sections = _context3.sent;
+
+                if (!(Object.values(sections).length >= 1)) {
+                  _context3.next = 9;
                   break;
                 }
 
-                _context3.next = 5;
-                return _sectionServices["default"].addNew(data);
-
-              case 5:
-                added = _context3.sent;
-                util.setSuccess("Added successfully", 200, added);
+                util.setSuccess(" Found sections", 200, sections);
                 return _context3.abrupt("return", util.send(res));
 
-              case 10:
-                util.setError(400, "can't add");
+              case 9:
+                util.setError(" Sections weren't found at all ");
                 return _context3.abrupt("return", util.send(res));
 
-              case 12:
-                _context3.next = 18;
+              case 11:
+                _context3.next = 17;
                 break;
 
-              case 14:
-                _context3.prev = 14;
+              case 13:
+                _context3.prev = 13;
                 _context3.t0 = _context3["catch"](0);
-                util.setError(400, "an error occured " + _context3.t0.message);
+                util.setError(400, "an error occured  ".concat(_context3.t0.message));
                 return _context3.abrupt("return", util.send(res));
 
-              case 18:
+              case 17:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, null, [[0, 14]]);
+        }, _callee3, null, [[0, 13]]);
       }));
 
-      function adder(_x5, _x6) {
+      function get_specific_sections(_x5, _x6) {
+        return _get_specific_sections.apply(this, arguments);
+      }
+
+      return get_specific_sections;
+    }()
+  }, {
+    key: "adder",
+    value: function () {
+      var _adder = (0, _asyncToGenerator2["default"])(
+      /*#__PURE__*/
+      _regenerator["default"].mark(function _callee4(req, res) {
+        var data, added;
+        return _regenerator["default"].wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.prev = 0;
+                data = req.body;
+
+                if (!(Object.values(data).length < 3 == false)) {
+                  _context4.next = 10;
+                  break;
+                }
+
+                _context4.next = 5;
+                return _sectionServices["default"].addNew(data);
+
+              case 5:
+                added = _context4.sent;
+                util.setSuccess("Added successfully", 200, added);
+                return _context4.abrupt("return", util.send(res));
+
+              case 10:
+                util.setError(400, "can't add some missing fields");
+                return _context4.abrupt("return", util.send(res));
+
+              case 12:
+                _context4.next = 18;
+                break;
+
+              case 14:
+                _context4.prev = 14;
+                _context4.t0 = _context4["catch"](0);
+                util.setError(400, "an error occured " + _context4.t0.message);
+                return _context4.abrupt("return", util.send(res));
+
+              case 18:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, null, [[0, 14]]);
+      }));
+
+      function adder(_x7, _x8) {
         return _adder.apply(this, arguments);
       }
 
@@ -198,52 +251,52 @@ function () {
     value: function () {
       var _udpdate = (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
-      _regenerator["default"].mark(function _callee4(req, res) {
+      _regenerator["default"].mark(function _callee5(req, res) {
         var id, data, updated;
-        return _regenerator["default"].wrap(function _callee4$(_context4) {
+        return _regenerator["default"].wrap(function _callee5$(_context5) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context5.prev = _context5.next) {
               case 0:
-                _context4.prev = 0;
+                _context5.prev = 0;
                 id = req.params;
                 data = req.body;
 
                 if (!(Object.values(data).length >= 1)) {
-                  _context4.next = 11;
+                  _context5.next = 11;
                   break;
                 }
 
-                _context4.next = 6;
+                _context5.next = 6;
                 return _sectionServices["default"].updater(id, data);
 
               case 6:
-                updated = _context4.sent;
+                updated = _context5.sent;
                 util.setSuccess("Updated successfully", 200, updated);
-                return _context4.abrupt("return", util.send(res));
+                return _context5.abrupt("return", util.send(res));
 
               case 11:
                 util.setError(400, "C'mon you got to atleast update one");
-                return _context4.abrupt("return", util.send(res));
+                return _context5.abrupt("return", util.send(res));
 
               case 13:
-                _context4.next = 19;
+                _context5.next = 19;
                 break;
 
               case 15:
-                _context4.prev = 15;
-                _context4.t0 = _context4["catch"](0);
-                util.setError(400, "An error occured " + _context4.t0.message);
-                return _context4.abrupt("return", util.send(res));
+                _context5.prev = 15;
+                _context5.t0 = _context5["catch"](0);
+                util.setError(400, "An error occured " + _context5.t0.message);
+                return _context5.abrupt("return", util.send(res));
 
               case 19:
               case "end":
-                return _context4.stop();
+                return _context5.stop();
             }
           }
-        }, _callee4, null, [[0, 15]]);
+        }, _callee5, null, [[0, 15]]);
       }));
 
-      function udpdate(_x7, _x8) {
+      function udpdate(_x9, _x10) {
         return _udpdate.apply(this, arguments);
       }
 
@@ -254,47 +307,47 @@ function () {
     value: function () {
       var _delete2 = (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
-      _regenerator["default"].mark(function _callee5(req, res) {
+      _regenerator["default"].mark(function _callee6(req, res) {
         var id, deleted;
-        return _regenerator["default"].wrap(function _callee5$(_context5) {
+        return _regenerator["default"].wrap(function _callee6$(_context6) {
           while (1) {
-            switch (_context5.prev = _context5.next) {
+            switch (_context6.prev = _context6.next) {
               case 0:
-                _context5.prev = 0;
+                _context6.prev = 0;
                 id = req.params;
-                _context5.next = 4;
+                _context6.next = 4;
                 return _sectionServices["default"].deleter(id);
 
               case 4:
-                deleted = _context5.sent;
+                deleted = _context6.sent;
 
                 if (!deleted) {
-                  _context5.next = 8;
+                  _context6.next = 8;
                   break;
                 }
 
                 util.setSuccess("Deleted successfully", 200, deleted);
-                return _context5.abrupt("return", util.send(res));
+                return _context6.abrupt("return", util.send(res));
 
               case 8:
-                _context5.next = 14;
+                _context6.next = 14;
                 break;
 
               case 10:
-                _context5.prev = 10;
-                _context5.t0 = _context5["catch"](0);
-                util.setError(400, "An error occured " + _context5.t0.message);
-                return _context5.abrupt("return", util.send(res));
+                _context6.prev = 10;
+                _context6.t0 = _context6["catch"](0);
+                util.setError(400, "An error occured " + _context6.t0.message);
+                return _context6.abrupt("return", util.send(res));
 
               case 14:
               case "end":
-                return _context5.stop();
+                return _context6.stop();
             }
           }
-        }, _callee5, null, [[0, 10]]);
+        }, _callee6, null, [[0, 10]]);
       }));
 
-      function _delete(_x9, _x10) {
+      function _delete(_x11, _x12) {
         return _delete2.apply(this, arguments);
       }
 

@@ -20,10 +20,9 @@ class termController {
             return util.send(res);
         }
     }
-    static async getParticular(req, res) {
+    static async getParticulars(req, res) {
         try {
-            const id = req.params;
-            const one = await termService.getOne(id);
+            const one = await termService.getOneComplex(req.body.id,req.body.term,req.body.studentId,req.body.course);
             if (!one) {
                 util.setError(400, "Term can't be found");
                 return util.send(res);
@@ -38,7 +37,7 @@ class termController {
     }
     static async deleteTerm(req, res) {
         try {
-            const id = req.params;
+            const {id} = req.params;
             const deleted = await termService.deleter(id);
             if (!deleted) {
                 util.setError(400, "Term can't be found");
@@ -48,7 +47,8 @@ class termController {
                 return util.send(res);
             }
         } catch (error) {
-
+            util.setError(400, error.message);
+            return util.send(res);
         }
     }
     static async updateTerm(req, res) {
@@ -83,11 +83,7 @@ class termController {
     static async addNewRecord(req, res) {
         try {
             const newRecord = req.body;
-            const lookUp = await termService.getOneComplex(req.query.classId, req.query.term, req.query.studentId, req.query.course);
-            if (Object.values(lookUp).length >= 1) {
-                util.setError(404, `can't add this record as it exists already`);
-                return util.send(res);
-            } else {
+          //  const lookUp = await termService.getOneComplex(req.query.classId, req.query.term, req.query.studentId, req.query.course);
                 const added = await termService.addNew(newRecord);
                 if (Object.values(added).length >= 1) {
                     util.setSuccess("Added successfully", 200, added);
@@ -96,7 +92,7 @@ class termController {
                     util.setError(400, "Can't add new record");
                     return util.send(res);
                 }
-            }
+            
         } catch (error) {
 
             util.setError(400, `Oops something went wrong >> ${error.message}`);

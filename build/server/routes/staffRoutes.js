@@ -13,6 +13,7 @@ var _staffController = _interopRequireDefault(require("../controllers/staffContr
 
 var router = (0, _express.Router)();
 router.get('/', _staffController["default"].getListStaff);
+router.get('/t', _staffController["default"].getTeachers);
 router.post('/', _staffController["default"].AddNewStaff);
 router.get('/:id', _staffController["default"].searchStaff);
 router.put('/:id', _staffController["default"].updateStaff);

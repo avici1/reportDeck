@@ -44,7 +44,10 @@ class courseTeacherService {
     }
     static async getAll() {
         try {
-            return await database.courseTeacher.findAll();
+            const raw = await database.courseTeacher.findAll({
+                attributes : { exclude : ['id','createdAt','updatedAt','classId']}
+            });
+            return raw;
 
         } catch (error) {
             throw error;

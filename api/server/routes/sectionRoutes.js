@@ -2,6 +2,7 @@ import section from '../controllers/sectionController';
 import {Router} from 'express';
 const router = Router();
 router.get('/',section.getAll);
+router.get('/sp',section.get_specific_sections);
 router.get('/:schoolId',section.getOne);
 router.post('/',section.adder);
 router.put('/:sectionId',section.udpdate);

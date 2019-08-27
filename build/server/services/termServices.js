@@ -92,7 +92,7 @@ function () {
                 _context2.next = 3;
                 return _models["default"].Term.destroy({
                   where: {
-                    studentId: id
+                    id: id
                   }
                 });
 
@@ -143,7 +143,7 @@ function () {
                 _context3.next = 3;
                 return _models["default"].Term.update(updated_, {
                   where: {
-                    studentId: id
+                    id: id
                   }
                 });
 
@@ -191,7 +191,11 @@ function () {
               case 0:
                 _context4.prev = 0;
                 _context4.next = 3;
-                return _models["default"].Term.findAll();
+                return _models["default"].Term.findAll({
+                  attributes: {
+                    exclude: ['classId', 'createdAt', 'updatedAt']
+                  }
+                });
 
               case 3:
                 return _context4.abrupt("return", _context4.sent);
@@ -216,11 +220,11 @@ function () {
       return getAll;
     }()
   }, {
-    key: "getOne",
+    key: "getOneComplex",
     value: function () {
-      var _getOne = (0, _asyncToGenerator2["default"])(
+      var _getOneComplex = (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
-      _regenerator["default"].mark(function _callee5(searchParam) {
+      _regenerator["default"].mark(function _callee5(classId_n, term_n, studentId_n, course_n) {
         var foundTerm;
         return _regenerator["default"].wrap(function _callee5$(_context5) {
           while (1) {
@@ -228,65 +232,6 @@ function () {
               case 0:
                 _context5.prev = 0;
                 _context5.next = 3;
-                return _models["default"].Term.findAll({
-                  where: (0, _defineProperty2["default"])({}, op.or, [{
-                    studentId: (0, _defineProperty2["default"])({}, op.like, '%' + searchParam + '%')
-                  }, {
-                    maxTj: (0, _defineProperty2["default"])({}, op.like, '%' + searchParam + '%')
-                  }, {
-                    tj: (0, _defineProperty2["default"])({}, op.like, '%' + searchParam + '%')
-                  }, {
-                    maxExam: (0, _defineProperty2["default"])({}, op.like, '%' + searchParam + '%')
-                  }, {
-                    exam: (0, _defineProperty2["default"])({}, op.like, '%' + searchParam + '%')
-                  }])
-                });
-
-              case 3:
-                foundTerm = _context5.sent;
-
-                if (!foundTerm) {
-                  _context5.next = 6;
-                  break;
-                }
-
-                return _context5.abrupt("return", foundTerm);
-
-              case 6:
-                return _context5.abrupt("return", null);
-
-              case 9:
-                _context5.prev = 9;
-                _context5.t0 = _context5["catch"](0);
-                throw _context5.t0;
-
-              case 12:
-              case "end":
-                return _context5.stop();
-            }
-          }
-        }, _callee5, null, [[0, 9]]);
-      }));
-
-      function getOne(_x5) {
-        return _getOne.apply(this, arguments);
-      }
-
-      return getOne;
-    }()
-  }, {
-    key: "getOneComplex",
-    value: function () {
-      var _getOneComplex = (0, _asyncToGenerator2["default"])(
-      /*#__PURE__*/
-      _regenerator["default"].mark(function _callee6(classId_n, term_n, studentId_n, course_n) {
-        var foundTerm;
-        return _regenerator["default"].wrap(function _callee6$(_context6) {
-          while (1) {
-            switch (_context6.prev = _context6.next) {
-              case 0:
-                _context6.prev = 0;
-                _context6.next = 3;
                 return _models["default"].Term.findAll({
                   where: (0, _defineProperty2["default"])({}, op.and, [{
                     classId: classId_n
@@ -300,36 +245,36 @@ function () {
                 });
 
               case 3:
-                foundTerm = _context6.sent;
+                foundTerm = _context5.sent;
 
                 if (!(Object.values(foundTerm).length >= 1)) {
-                  _context6.next = 8;
+                  _context5.next = 8;
                   break;
                 }
 
-                return _context6.abrupt("return", foundTerm);
+                return _context5.abrupt("return", foundTerm);
 
               case 8:
-                return _context6.abrupt("return", null);
+                return _context5.abrupt("return", null);
 
               case 9:
-                _context6.next = 14;
+                _context5.next = 14;
                 break;
 
               case 11:
-                _context6.prev = 11;
-                _context6.t0 = _context6["catch"](0);
-                throw _context6.t0;
+                _context5.prev = 11;
+                _context5.t0 = _context5["catch"](0);
+                throw _context5.t0;
 
               case 14:
               case "end":
-                return _context6.stop();
+                return _context5.stop();
             }
           }
-        }, _callee6, null, [[0, 11]]);
+        }, _callee5, null, [[0, 11]]);
       }));
 
-      function getOneComplex(_x6, _x7, _x8, _x9) {
+      function getOneComplex(_x5, _x6, _x7, _x8) {
         return _getOneComplex.apply(this, arguments);
       }
 

@@ -4,7 +4,9 @@ const op = sequelize.Op;
 class staffService {
     static async GetAllStaff() {
         try {
-            return await database.Staff.findAll();
+            return await database.Staff.findAll({
+                attributes : ['staffId','staffNames']
+            });
         } catch (error) {
             throw error;
         }
@@ -29,6 +31,22 @@ class staffService {
         } catch (error) {
             throw error;
         }
+    }
+    static async searchTeacher() {
+     try {
+         const teacher =await database.Staff.findAll({
+             attributes : ['staffId','staffNames'],
+             where: {
+                 staffTitle: 'Teacher'
+             }
+         });
+         if(teacher){
+             return teacher;
+         }
+         return null;
+     } catch (error) {
+         throw error;
+     }
     }
     static async AddStaff(newStaff) {
         try {
