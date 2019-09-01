@@ -14,6 +14,9 @@ module.exports = {
       studentId:{
         type: Sequelize.STRING
       },
+      studentNames:{
+        type: Sequelize.STRING
+      },
       tj: {
         type: Sequelize.INTEGER
       },
@@ -32,7 +35,7 @@ module.exports = {
       term:{
         type:Sequelize.STRING
       },
-      birthDate:{
+      markId:{
         type:Sequelize.STRING
       },
       createdAt: {

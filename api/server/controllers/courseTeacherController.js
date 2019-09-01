@@ -30,11 +30,10 @@ class courseTeacherController {
                 util.setSuccess("Found ", 200, list);
                 return util.send(res);
             } else {
-                util.setError(400, "A problem occured can't find list of marks");
+                util.setError(400, "A problem occured can't find any data");
                 return util.send(res);
             }
         } catch (error) {
-            errorerror
             util.setError(400, "an error occured " + error.message);
             return util.send(res);
         }
@@ -42,8 +41,18 @@ class courseTeacherController {
     static async adder(req, res) {
         try {
             const data = req.body;
-            if ((Object.values(data).length < 5) == false) {
-                const added = await ctService.addNew(data);
+            const date = new Date();
+            const teacherId_ = req.body.teachername.slice(0,3) + '-'+Math.floor((Math.random() * 100)) + '-' +date.getFullYear();
+            const courseId_ = req.body.courseName.slice(0,3) + '-'+ Math.floor((Math.random() * 100)) + '-' +date.getFullYear();
+            const dataToadd = {
+                "teachername":req.body.teachername,
+                "teacherId":teacherId_,
+                "courseName":req.body.courseName,
+                "courseId":courseId_,
+                "classId":req.body.classId
+            };
+            if ((Object.values(data).length < 3) == false) {
+                const added = await ctService.addNew(dataToadd);
                 util.setSuccess("Added successfully", 200, added);
                 return util.send(res);
             } else {
@@ -84,7 +93,7 @@ class courseTeacherController {
                 return util.send(res);
             }
         } catch (error) {
-            util.seGETtError(400, "An error occured " + error.message);
+            util.setError(400, "An error occured " + error.message);
             return util.send(res);
         }
     }

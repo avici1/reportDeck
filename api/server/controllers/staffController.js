@@ -38,11 +38,18 @@ class staffController {
     static async AddNewStaff(req, res) {
         try {
             const newStaff = req.body;
-            if (!req.body.staffId || !req.body.staffNames || !req.body.staffTitle) {
+            const date = new Date();
+            const staffId_ = req.body.staffNames.slice(0,3) + '-' + Math.floor(Math.random() * 100) +'-'+date.getFullYear();
+            const newstaffToAdd = {
+                staffId : staffId_,
+                staffNames : req.body.staffNames,
+                staffTitle : req.body.staffTitle
+            };
+            if (!req.body.staffNames || !req.body.staffTitle) {
                 util.setError(400, "Please send complete information");
                 return util.send(res);
             } else {
-                const addedStaff = await staffService.AddStaff(newStaff);
+                const addedStaff = await staffService.AddStaff(newstaffToAdd);
                 util.setSuccess("Staff added succefully", 200, addedStaff);
                 return util.send(res);
             }
@@ -120,7 +127,7 @@ class staffController {
                 }
 
             } catch (error) {
-                util.setError(404, `can't delete the class`);
+                util.setError(404, `can't delete the class  ${error.message}`);
                 return util.send(res);
             }
 

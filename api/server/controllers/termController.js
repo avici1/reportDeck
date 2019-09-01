@@ -21,8 +21,11 @@ class termController {
         }
     }
     static async getParticulars(req, res) {
+        const {
+            id
+        } = req.params;
         try {
-            const one = await termService.getOneComplex(req.body.id,req.body.term,req.body.studentId,req.body.course);
+            const one = await termService.getOneComplex(id);
             if (!one) {
                 util.setError(400, "Term can't be found");
                 return util.send(res);
@@ -35,9 +38,26 @@ class termController {
             return util.send(res);
         }
     }
+    static async getParticularsPerClass(req, res) {
+        try {
+            const one = await termService.getOnePerClass(req.params.classId,req.params.term);
+            if (!one) {
+                util.setError(400, "Term can't be found");
+                return util.send(res);
+            } else {
+                util.setSuccess("Term found", 200, one);
+                return util.send(res);
+            }
+        } catch (error) {
+            util.setError(400, error.message + ' >>> ' + req.params.classId + ' >>> ' + req.params.term);
+            return util.send(res);
+        }
+    }
     static async deleteTerm(req, res) {
         try {
-            const {id} = req.params;
+            const {
+                id
+            } = req.params;
             const deleted = await termService.deleter(id);
             if (!deleted) {
                 util.setError(400, "Term can't be found");
@@ -82,17 +102,29 @@ class termController {
     }
     static async addNewRecord(req, res) {
         try {
-            const newRecord = req.body;
-          //  const lookUp = await termService.getOneComplex(req.query.classId, req.query.term, req.query.studentId, req.query.course);
-                const added = await termService.addNew(newRecord);
-                if (Object.values(added).length >= 1) {
-                    util.setSuccess("Added successfully", 200, added);
-                    return util.send(res);
-                } else {
-                    util.setError(400, "Can't add new record");
-                    return util.send(res);
-                }
-            
+            const markId_ = req.body.studentId+'-'+req.body.course+'-'+req.body.classId+'-'+req.body.term
+            const newRecord = {
+                studentId:req.body.studentId,
+                studentNames:req.body.studentNames,
+                maxTj: req.body.maxTj,
+                tj:req.body.tj,
+                maxExam: req.body.maxExam,
+                exam: req.body.exam,
+                classId:req.body.classId,
+                course:req.body.course,
+                term:req.body.term,
+                markId:markId_
+            }
+            //  const lookUp = await termService.getOneComplex(req.query.classId, req.query.term, req.query.studentId, req.query.course);
+            const added = await termService.addNew(newRecord);
+            if (Object.values(added).length >= 1) {
+                util.setSuccess("Added successfully", 200, added);
+                return util.send(res);
+            } else {
+                util.setError(400, "Can't add new record");
+                return util.send(res);
+            }
+
         } catch (error) {
 
             util.setError(400, `Oops something went wrong >> ${error.message}`);

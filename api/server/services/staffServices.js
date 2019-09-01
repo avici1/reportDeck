@@ -71,7 +71,7 @@ class staffService {
         try {
             const staffToDelete = await database.Staff.findOne({ where: { staffId: id } });
             if (staffToDelete) {
-                return await database.Staff.destroy({ where: { staffid:id } });
+                return await database.Staff.destroy({ where: { staffId:id } });
             }
         } catch (error) {
             throw error;

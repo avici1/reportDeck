@@ -1,0 +1,10 @@
+curl --header "Content-Type: application/json" \
+  --request POST \
+  --data '{
+	"classYear":"2019",
+	"classId":"s6mpc",
+	"classMasterTeacher":"Ndakaza",
+	"classSection":"MPC",
+	"classLevel":"S6"
+}' \
+https://reportdeckapi.herokuapp.com/api/class

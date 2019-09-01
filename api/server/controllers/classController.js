@@ -12,10 +12,9 @@ class ClassController {
                 return util.send(res);
 
             } else {
-                util.setErro("Classes Not Found", 200, {});
+                util.setError("Classes Not Found", 200, {});
                 return util.send(res);
             }
-            return util.send(res);
         } catch (error) {
             util.setError(400, error.message);
             return util.send(res);

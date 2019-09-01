@@ -1,11 +1,11 @@
 import database from '../../models';
 import sequelize from 'sequelize';
-const  op = sequelize;
-class termServices{
-    static async addNew(newEntry){
+const op = sequelize.Op;
+class termServices {
+    static async addNew(newEntry) {
         try {
             const added = await database.Term.create(newEntry);
-            if(Object.values(added).length > 1){
+            if (Object.values(added).length > 1) {
                 return added;
             }
             return null;
@@ -13,10 +13,14 @@ class termServices{
             throw error;
         }
     }
-    static async deleter(id){
+    static async deleter(id) {
         try {
-            const deleted = await database.Term.destroy({where:{id:id}});
-            if(deleted){
+            const deleted = await database.Term.destroy({
+                where: {
+                    markId: id
+                }
+            });
+            if (deleted) {
                 return deleted;
             }
             return null;
@@ -24,10 +28,14 @@ class termServices{
             throw error;
         }
     }
-    static async updater(id,updated_){
+    static async updater(id, updated_) {
         try {
-            const updated = await database.Term.update(updated_,{where:{id:id}});
-            if(updated){
+            const updated = await database.Term.update(updated_, {
+                where: {
+                    markId: id
+                }
+            });
+            if (updated) {
                 return updated;
             }
             return null;
@@ -35,11 +43,11 @@ class termServices{
             throw error;
         }
     }
-    static async getAll(){
+    static async getAll() {
         try {
             return await database.Term.findAll({
-                attributes : {
-                    exclude : ['classId','createdAt','updatedAt']
+                attributes: {
+                    exclude: ['classId', 'createdAt', 'updatedAt']
                 }
             });
 
@@ -47,22 +55,43 @@ class termServices{
             throw error;
         }
     }
-    
-    static async getOneComplex(classId_n,term_n,studentId_n,course_n){
+
+    static async getOneComplex(id) {
         try {
             const foundTerm = await database.Term.findAll({
-                where :{
-                    [op.and] : [
-                        {classId:classId_n},
-                        {studentId:studentId_n},
-                        {term:term_n},
-                        {course:course_n}
-                    ]
+                attributes: {
+                    exclude: ['classId', 'createdAt', 'updatedAt']
+                },
+                where: {
+                    markId: id
                 }
             });
-            if(Object.values(foundTerm).length >=1){
+            if (Object.values(foundTerm).length >= 1) {
                 return foundTerm;
-            }else{
+            } else {
+                return null;
+            }
+        } catch (error) {
+            throw error;
+        }
+    }
+    static async getOnePerClass(id,term) {
+        try {
+            const foundTerm = await database.Term.findAll({
+                attributes: {
+                    exclude: ['classId', 'createdAt', 'updatedAt']
+                },
+                
+                where: {
+                   [op.or] :[
+                       {classId:id},
+                       {term:term}
+                   ]
+                }
+            });
+            if (Object.values(foundTerm).length >= 1) {
+                return foundTerm;
+            } else {
                 return null;
             }
         } catch (error) {
