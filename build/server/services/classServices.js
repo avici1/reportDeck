@@ -40,7 +40,11 @@ function () {
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return _models["default"].Classes.findAll();
+                return _models["default"].Classes.findAll({
+                  attributes: {
+                    exclude: ['id', 'createdAt', 'updatedAt']
+                  }
+                });
 
               case 3:
                 return _context.abrupt("return", _context.sent);
@@ -78,6 +82,9 @@ function () {
                 _context2.prev = 0;
                 _context2.next = 3;
                 return _models["default"].Classes.findOne({
+                  attributes: {
+                    exclude: ['id', 'createdAt', 'updatedAt']
+                  },
                   where: {
                     classId: id
                   }

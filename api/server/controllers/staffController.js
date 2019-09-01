@@ -93,7 +93,7 @@ class staffController {
                     return util.send(res);
                 } else {
                     const staffToUpdate = await staffService.SearchStaff(id);
-                    if (!staffToUpdate) {
+                    if (Object.values(staffToUpdate).length >=1) {
                         util.setError(400, "Can't find what you're trying to update");
                         return util.send(res);
                     } else {

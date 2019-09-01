@@ -14,7 +14,8 @@ var _termController = _interopRequireDefault(require("../controllers/termControl
 // import router from './classRouter';
 var route = (0, _express.Router)();
 route.get('/', _termController["default"].getAll);
-route.get('/:id/:term/:course', _termController["default"].getParticulars);
+route.get('/:id', _termController["default"].getParticulars);
+route.get('/:classId/:term', _termController["default"].getParticularsPerClass);
 route.put('/:id', _termController["default"].updateTerm);
 route["delete"]('/:id', _termController["default"].deleteTerm);
 route.post('/', _termController["default"].addNewRecord);

@@ -15,6 +15,7 @@ class staffService {
     static async SearchStaff(searchParam) {
         try {
             const staff = await database.Staff.findAll({
+                attributes :{exclude :['id','createdAt','updatedAt']},
                 where: {
                     [op.or]: [
                         { staffId: { [op.like]: '%' + searchParam + '%' } },

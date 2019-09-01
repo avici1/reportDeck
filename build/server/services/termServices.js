@@ -21,7 +21,7 @@ var _models = _interopRequireDefault(require("../../models"));
 
 var _sequelize = _interopRequireDefault(require("sequelize"));
 
-var op = _sequelize["default"];
+var op = _sequelize["default"].Op;
 
 var termServices =
 /*#__PURE__*/
@@ -92,7 +92,7 @@ function () {
                 _context2.next = 3;
                 return _models["default"].Term.destroy({
                   where: {
-                    id: id
+                    markId: id
                   }
                 });
 
@@ -143,7 +143,7 @@ function () {
                 _context3.next = 3;
                 return _models["default"].Term.update(updated_, {
                   where: {
-                    id: id
+                    markId: id
                   }
                 });
 
@@ -224,7 +224,7 @@ function () {
     value: function () {
       var _getOneComplex = (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
-      _regenerator["default"].mark(function _callee5(classId_n, term_n, studentId_n, course_n) {
+      _regenerator["default"].mark(function _callee5(id) {
         var foundTerm;
         return _regenerator["default"].wrap(function _callee5$(_context5) {
           while (1) {
@@ -233,15 +233,12 @@ function () {
                 _context5.prev = 0;
                 _context5.next = 3;
                 return _models["default"].Term.findAll({
-                  where: (0, _defineProperty2["default"])({}, op.and, [{
-                    classId: classId_n
-                  }, {
-                    studentId: studentId_n
-                  }, {
-                    term: term_n
-                  }, {
-                    course: course_n
-                  }])
+                  attributes: {
+                    exclude: ['classId', 'createdAt', 'updatedAt']
+                  },
+                  where: {
+                    markId: id
+                  }
                 });
 
               case 3:
@@ -274,11 +271,71 @@ function () {
         }, _callee5, null, [[0, 11]]);
       }));
 
-      function getOneComplex(_x5, _x6, _x7, _x8) {
+      function getOneComplex(_x5) {
         return _getOneComplex.apply(this, arguments);
       }
 
       return getOneComplex;
+    }()
+  }, {
+    key: "getOnePerClass",
+    value: function () {
+      var _getOnePerClass = (0, _asyncToGenerator2["default"])(
+      /*#__PURE__*/
+      _regenerator["default"].mark(function _callee6(id, term) {
+        var foundTerm;
+        return _regenerator["default"].wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                _context6.prev = 0;
+                _context6.next = 3;
+                return _models["default"].Term.findAll({
+                  attributes: {
+                    exclude: ['classId', 'createdAt', 'updatedAt']
+                  },
+                  where: (0, _defineProperty2["default"])({}, op.or, [{
+                    classId: id
+                  }, {
+                    term: term
+                  }])
+                });
+
+              case 3:
+                foundTerm = _context6.sent;
+
+                if (!(Object.values(foundTerm).length >= 1)) {
+                  _context6.next = 8;
+                  break;
+                }
+
+                return _context6.abrupt("return", foundTerm);
+
+              case 8:
+                return _context6.abrupt("return", null);
+
+              case 9:
+                _context6.next = 14;
+                break;
+
+              case 11:
+                _context6.prev = 11;
+                _context6.t0 = _context6["catch"](0);
+                throw _context6.t0;
+
+              case 14:
+              case "end":
+                return _context6.stop();
+            }
+          }
+        }, _callee6, null, [[0, 11]]);
+      }));
+
+      function getOnePerClass(_x6, _x7) {
+        return _getOnePerClass.apply(this, arguments);
+      }
+
+      return getOnePerClass;
     }()
   }]);
   return termServices;

@@ -19,8 +19,6 @@ var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/creat
 
 var _models = _interopRequireDefault(require("../../models"));
 
-var _studentServices = _interopRequireDefault(require("./studentServices"));
-
 var _sequelize = _interopRequireDefault(require("sequelize"));
 
 var op = _sequelize["default"].Op;
@@ -135,30 +133,29 @@ function () {
     value: function () {
       var _updater = (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
-      _regenerator["default"].mark(function _callee3(id, updated) {
-        var _updated;
-
+      _regenerator["default"].mark(function _callee3(id, updated_) {
+        var updated;
         return _regenerator["default"].wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.prev = 0;
                 _context3.next = 3;
-                return _models["default"].studentsClass.update(_updated, {
+                return _models["default"].studentsClass.update(updated_, {
                   where: {
                     studentId: id
                   }
                 });
 
               case 3:
-                _updated = _context3.sent;
+                updated = _context3.sent;
 
-                if (!_updated) {
+                if (!updated) {
                   _context3.next = 6;
                   break;
                 }
 
-                return _context3.abrupt("return", _updated);
+                return _context3.abrupt("return", updated);
 
               case 6:
                 return _context3.abrupt("return", null);
@@ -194,7 +191,11 @@ function () {
               case 0:
                 _context4.prev = 0;
                 _context4.next = 3;
-                return _models["default"].studentsClass.findAll();
+                return _models["default"].studentsClass.findAll({
+                  attributes: {
+                    exclude: ['id', 'createdAt', 'updatedAt']
+                  }
+                });
 
               case 3:
                 return _context4.abrupt("return", _context4.sent);
@@ -232,6 +233,9 @@ function () {
                 _context5.prev = 0;
                 _context5.next = 3;
                 return _models["default"].studentsClass.findAll({
+                  attributes: {
+                    exclude: ['id', 'createdAt', 'updatedAt']
+                  },
                   where: (0, _defineProperty2["default"])({}, op.or, [{
                     studentId: (0, _defineProperty2["default"])({}, op.like, '%' + searchParam + '%')
                   }, {

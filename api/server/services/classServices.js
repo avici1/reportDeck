@@ -4,7 +4,9 @@ const op = sequelize.Op;
 class classService {
     static async getAllClasses() {
         try {
-            return await database.Classes.findAll();
+            return await database.Classes.findAll({
+                attributes : {exclude : ['id','createdAt','updatedAt']}
+            });
         } catch (error) {
             throw error;
         }
@@ -12,6 +14,7 @@ class classService {
     static async getOneClass(id) {
         try {
             const ClassToFind = await database.Classes.findOne({
+                attributes :{exclude :['id','createdAt','updatedAt']},
                 where: {
                     classId: id
                 }

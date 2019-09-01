@@ -82,6 +82,9 @@ function () {
                 _context2.prev = 0;
                 _context2.next = 3;
                 return _models["default"].Staff.findAll({
+                  attributes: {
+                    exclude: ['id', 'createdAt', 'updatedAt']
+                  },
                   where: (0, _defineProperty2["default"])({}, op.or, [{
                     staffId: (0, _defineProperty2["default"])({}, op.like, '%' + searchParam + '%')
                   }, {
@@ -300,7 +303,7 @@ function () {
                 _context6.next = 7;
                 return _models["default"].Staff.destroy({
                   where: {
-                    staffid: id
+                    staffId: id
                   }
                 });
 

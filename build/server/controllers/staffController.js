@@ -142,47 +142,54 @@ function () {
       var _AddNewStaff = (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
       _regenerator["default"].mark(function _callee3(req, res) {
-        var newStaff, addedStaff;
+        var newStaff, date, staffId_, newstaffToAdd, addedStaff;
         return _regenerator["default"].wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.prev = 0;
                 newStaff = req.body;
+                date = new Date();
+                staffId_ = req.body.staffNames.slice(0, 3) + '-' + Math.floor(Math.random() * 100) + '-' + date.getFullYear();
+                newstaffToAdd = {
+                  staffId: staffId_,
+                  staffNames: req.body.staffNames,
+                  staffTitle: req.body.staffTitle
+                };
 
-                if (!(!req.body.staffId || !req.body.staffNames || !req.body.staffTitle)) {
-                  _context3.next = 7;
+                if (!(!req.body.staffNames || !req.body.staffTitle)) {
+                  _context3.next = 10;
                   break;
                 }
 
                 util.setError(400, "Please send complete information");
                 return _context3.abrupt("return", util.send(res));
 
-              case 7:
-                _context3.next = 9;
-                return _staffServices["default"].AddStaff(newStaff);
+              case 10:
+                _context3.next = 12;
+                return _staffServices["default"].AddStaff(newstaffToAdd);
 
-              case 9:
+              case 12:
                 addedStaff = _context3.sent;
                 util.setSuccess("Staff added succefully", 200, addedStaff);
                 return _context3.abrupt("return", util.send(res));
 
-              case 12:
-                _context3.next = 18;
+              case 15:
+                _context3.next = 21;
                 break;
 
-              case 14:
-                _context3.prev = 14;
+              case 17:
+                _context3.prev = 17;
                 _context3.t0 = _context3["catch"](0);
                 util.setError(400, _context3.t0.message);
                 return _context3.abrupt("return", util.send(res));
 
-              case 18:
+              case 21:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, null, [[0, 14]]);
+        }, _callee3, null, [[0, 17]]);
       }));
 
       function AddNewStaff(_x5, _x6) {
@@ -295,7 +302,7 @@ function () {
               case 15:
                 staffToUpdate = _context5.sent;
 
-                if (staffToUpdate) {
+                if (!(Object.values(staffToUpdate).length >= 1)) {
                   _context5.next = 21;
                   break;
                 }
@@ -384,7 +391,7 @@ function () {
               case 19:
                 _context6.prev = 19;
                 _context6.t0 = _context6["catch"](6);
-                util.setError(404, "can't delete the class");
+                util.setError(404, "can't delete the class  ".concat(_context6.t0.message));
                 return _context6.abrupt("return", util.send(res));
 
               case 23:

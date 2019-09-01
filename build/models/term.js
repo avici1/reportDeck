@@ -8,13 +8,15 @@ exports["default"] = void 0;
 var _default = function _default(sequelize, DataTypes) {
   var Term = sequelize.define('Term', {
     studentId: DataTypes.STRING,
+    studentNames: DataTypes.STRING,
     maxTj: DataTypes.INTEGER,
     tj: DataTypes.INTEGER,
     maxExam: DataTypes.INTEGER,
     exam: DataTypes.INTEGER,
     course: DataTypes.STRING,
     classId: DataTypes.STRING,
-    term: DataTypes.STRING
+    term: DataTypes.STRING,
+    markId: DataTypes.STRING
   }, {});
 
   Term.associate = function (models) {// associations can be defined here

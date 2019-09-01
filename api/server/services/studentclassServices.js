@@ -1,5 +1,4 @@
 import database from '../../models';
-import studentServices from './studentServices';
 import sequelize from 'sequelize';
 const op = sequelize.Op;
 class studentsClasservices{
@@ -25,9 +24,9 @@ class studentsClasservices{
             throw error;
         }
     }
-    static async updater(id,updated){
+    static async updater(id,updated_){
         try {
-            const updated = await database.studentsClass.update(updated,{where:{studentId:id}});
+            const updated = await database.studentsClass.update(updated_,{where:{studentId:id}});
             if(updated){
                 return updated;
             }
@@ -38,7 +37,9 @@ class studentsClasservices{
     }
     static async getAll(){
         try {
-            return await database.studentsClass.findAll();
+            return await database.studentsClass.findAll({
+                attributes :{exclude :['id','createdAt','updatedAt']},
+            });
 
         } catch (error) {
             throw error;
@@ -47,6 +48,7 @@ class studentsClasservices{
     static async getOne(id){
         try {
             const foundTerm = await database.studentsClass.findAll({
+                attributes :{exclude :['id','createdAt','updatedAt']},
                 where : {
                     [op.or]:[
                         {studentId:{[op.like]: '%' + searchParam +'%'}},

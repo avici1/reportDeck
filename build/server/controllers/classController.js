@@ -55,24 +55,25 @@ function () {
                 return _context.abrupt("return", util.send(res));
 
               case 9:
-                util.setErro("Classes Not Found", 200, {});
+                util.setError("Classes Not Found", 200, {});
                 return _context.abrupt("return", util.send(res));
 
               case 11:
-                return _context.abrupt("return", util.send(res));
+                _context.next = 17;
+                break;
 
-              case 14:
-                _context.prev = 14;
+              case 13:
+                _context.prev = 13;
                 _context.t0 = _context["catch"](0);
                 util.setError(400, _context.t0.message);
                 return _context.abrupt("return", util.send(res));
 
-              case 18:
+              case 17:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 14]]);
+        }, _callee, null, [[0, 13]]);
       }));
 
       function getListClass(_x, _x2) {

@@ -110,21 +110,20 @@ function () {
                 return _context2.abrupt("return", util.send(res));
 
               case 9:
-                util.setError(400, "A problem occured can't find list of marks");
+                util.setError(400, "A problem occured can't find any data");
                 return _context2.abrupt("return", util.send(res));
 
               case 11:
-                _context2.next = 18;
+                _context2.next = 17;
                 break;
 
               case 13:
                 _context2.prev = 13;
                 _context2.t0 = _context2["catch"](0);
-                errorerror;
                 util.setError(400, "an error occured " + _context2.t0.message);
                 return _context2.abrupt("return", util.send(res));
 
-              case 18:
+              case 17:
               case "end":
                 return _context2.stop();
             }
@@ -144,47 +143,57 @@ function () {
       var _adder = (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
       _regenerator["default"].mark(function _callee3(req, res) {
-        var data, added;
+        var data, date, teacherId_, courseId_, dataToadd, added;
         return _regenerator["default"].wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.prev = 0;
                 data = req.body;
+                date = new Date();
+                teacherId_ = req.body.teachername.slice(0, 3) + '-' + Math.floor(Math.random() * 100) + '-' + date.getFullYear();
+                courseId_ = req.body.courseName.slice(0, 3) + '-' + Math.floor(Math.random() * 100) + '-' + date.getFullYear();
+                dataToadd = {
+                  "teachername": req.body.teachername,
+                  "teacherId": teacherId_,
+                  "courseName": req.body.courseName,
+                  "courseId": courseId_,
+                  "classId": req.body.classId
+                };
 
-                if (!(Object.values(data).length < 5 == false)) {
-                  _context3.next = 10;
+                if (!(Object.values(data).length < 3 == false)) {
+                  _context3.next = 14;
                   break;
                 }
 
-                _context3.next = 5;
-                return _courseTeacherService["default"].addNew(data);
+                _context3.next = 9;
+                return _courseTeacherService["default"].addNew(dataToadd);
 
-              case 5:
+              case 9:
                 added = _context3.sent;
                 util.setSuccess("Added successfully", 200, added);
                 return _context3.abrupt("return", util.send(res));
 
-              case 10:
+              case 14:
                 util.setError(400, "can't add");
                 return _context3.abrupt("return", util.send(res));
 
-              case 12:
-                _context3.next = 18;
+              case 16:
+                _context3.next = 22;
                 break;
 
-              case 14:
-                _context3.prev = 14;
+              case 18:
+                _context3.prev = 18;
                 _context3.t0 = _context3["catch"](0);
                 util.setError(400, "an error occured " + _context3.t0.message);
                 return _context3.abrupt("return", util.send(res));
 
-              case 18:
+              case 22:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, null, [[0, 14]]);
+        }, _callee3, null, [[0, 18]]);
       }));
 
       function adder(_x5, _x6) {
@@ -287,7 +296,7 @@ function () {
               case 14:
                 _context5.prev = 14;
                 _context5.t0 = _context5["catch"](0);
-                util.seGETtError(400, "An error occured " + _context5.t0.message);
+                util.setError(400, "An error occured " + _context5.t0.message);
                 return _context5.abrupt("return", util.send(res));
 
               case 18:

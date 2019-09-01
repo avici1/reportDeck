@@ -34,7 +34,8 @@ function () {
       var _getAll = (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
       _regenerator["default"].mark(function _callee(req, res) {
-        var all;
+        var _all;
+
         return _regenerator["default"].wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -44,9 +45,9 @@ function () {
                 return _studentServices["default"].getAllStudent();
 
               case 3:
-                all = _context.sent;
+                _all = _context.sent;
 
-                if (all) {
+                if (!(Object.values(_all).length >= 1 == false)) {
                   _context.next = 9;
                   break;
                 }
@@ -55,7 +56,7 @@ function () {
                 return _context.abrupt("return", util.send(res));
 
               case 9:
-                util.setSuccess("Students found successfully", 200, all);
+                util.setSuccess("Students found successfully", 200, _all);
                 return _context.abrupt("return", util.send(res));
 
               case 11:
@@ -101,7 +102,7 @@ function () {
               case 4:
                 one = _context2.sent;
 
-                if (one) {
+                if (!(Object.values(all).length >= 1 == false)) {
                   _context2.next = 10;
                   break;
                 }
@@ -156,12 +157,12 @@ function () {
               case 4:
                 deleted = _context3.sent;
 
-                if (deleted) {
+                if (!(Object.values(all).length >= 1 == false)) {
                   _context3.next = 10;
                   break;
                 }
 
-                util.setError(400, "Student can't be found");
+                util.setError(400, "Student can't be deleted");
                 return _context3.abrupt("return", util.send(res));
 
               case 10:
@@ -198,47 +199,50 @@ function () {
       var _adder = (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
       _regenerator["default"].mark(function _callee4(req, res) {
-        var addee, added;
+        var addee, date, matricule_, added;
         return _regenerator["default"].wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
                 _context4.prev = 0;
                 addee = req.body;
-                _context4.next = 4;
+                date = new Date();
+                matricule_ = addee.matricule.slice(0, 3) + '-' + addee.names.slice(0, 2) + '-' + Math.floor(Math.random() * 100) + '-' + date.getFullYear();
+                addee.matricule = matricule_;
+                _context4.next = 7;
                 return _studentServices["default"].addStudent(addee);
 
-              case 4:
+              case 7:
                 added = _context4.sent;
 
-                if (added) {
-                  _context4.next = 10;
+                if (!(Object.values(added).length >= 1 == false)) {
+                  _context4.next = 13;
                   break;
                 }
 
                 util.setError(400, "Student can't be added");
                 return _context4.abrupt("return", util.send(res));
 
-              case 10:
+              case 13:
                 util.setSuccess("Added successfully", 200, added);
                 return _context4.abrupt("return", util.send(res));
 
-              case 12:
-                _context4.next = 18;
+              case 15:
+                _context4.next = 21;
                 break;
 
-              case 14:
-                _context4.prev = 14;
+              case 17:
+                _context4.prev = 17;
                 _context4.t0 = _context4["catch"](0);
                 util.setError(400, _context4.t0.message);
                 return _context4.abrupt("return", util.send(res));
 
-              case 18:
+              case 21:
               case "end":
                 return _context4.stop();
             }
           }
-        }, _callee4, null, [[0, 14]]);
+        }, _callee4, null, [[0, 17]]);
       }));
 
       function adder(_x7, _x8) {
@@ -282,11 +286,11 @@ function () {
                   break;
                 }
 
-                util.setError(404, "cant update a class");
+                util.setError(404, "cant update a Student");
                 return _context5.abrupt("return", util.send(res));
 
               case 16:
-                util.setSuccess('Classes updated successfully', 200, updated_class);
+                util.setSuccess('Student updated successfully', 200, updated_class);
                 return _context5.abrupt("return", util.send(res));
 
               case 18:
@@ -296,7 +300,7 @@ function () {
               case 20:
                 _context5.prev = 20;
                 _context5.t0 = _context5["catch"](2);
-                util.setError(404, 'Oops something Went wrong cant update the book >> ' + _context5.t0.message);
+                util.setError(404, 'Oops something Went wrong cant update the student>> ' + _context5.t0.message);
                 return _context5.abrupt("return", util.send(res));
 
               case 24:
