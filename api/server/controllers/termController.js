@@ -1,4 +1,7 @@
 import termService from '../services/termServices';
+import studentService from '../services/studentServices';
+import schoolService from '../services/schoolparameterServices';
+import classService from '../services/classServices';
 import Util from '../utils/Util';
 
 const util = new Util();
@@ -40,13 +43,43 @@ class termController {
     }
     static async getParticularsPerClass(req, res) {
         try {
-            const one = await termService.getOnePerClass(req.params.classId,req.params.term);
+            const one = await termService.getOnePerClass(req.params.classId,req.params.term,req.params.course);
             if (!one) {
                 util.setError(400, "Term can't be found");
                 return util.send(res);
             } else {
                 util.setSuccess("Term found", 200, one);
                 return util.send(res);
+            }
+        } catch (error) {
+            util.setError(400, error.message + ' >>> ' + req.params.classId + ' >>> ' + req.params.term);
+            return util.send(res);
+        }
+    }
+    static async getMarksForReport(req, res) {
+        try {
+            const one = await termService.getReportContents(req.params.studentId,req.params.term,req.params.classId);
+            if (one) {
+                let totals={
+                    tj:0,
+                    maxTj:0,
+                    exam:0,
+                    maxExam:0,
+                    percentage:0,
+                };
+                const date = new Date();
+                one.forEach((data)=>{
+                    totals.tj += data.tj;
+                    totals.maxtj += data.maxtj;
+                    totals.exam += data.exam;
+                    totals.maxExam += data.maxExam;
+                });
+                const classData = await classService.getOneClass(req.params.classId);
+                const studentData = await studentService.getStudentById(req.params.studentId);
+                totals.percentage = (((totals.tj+totals.exam)*100)/(totals.maxExam + totals.maxTj)).toFixed(2);
+                return res.render('report',{marks:one,classData:classData,studentData:studentData,date:date,totals_:totals,studentId:req.params.studentId,term:req.params.term,classId:req.params.classId});
+            } else {
+                return res.render('report',{marks:one});
             }
         } catch (error) {
             util.setError(400, error.message + ' >>> ' + req.params.classId + ' >>> ' + req.params.term);

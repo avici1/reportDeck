@@ -75,7 +75,7 @@ class termServices {
             throw error;
         }
     }
-    static async getOnePerClass(id,term) {
+    static async getOnePerClass(id,term,course) {
         try {
             const foundTerm = await database.Term.findAll({
                 attributes: {
@@ -83,15 +83,40 @@ class termServices {
                 },
                 
                 where: {
-                   [op.or] :[
+                   [op.and] :[
                        {classId:id},
-                       {term:term}
+                       {term:term},
+                       {course:course}
                    ]
                 }
             });
             if (Object.values(foundTerm).length >= 1) {
                 return foundTerm;
             } else {
+                return null;
+            }
+        } catch (error) {
+            throw error;
+        }
+    }
+    static async getReportContents(StudentId,Term,ClassId){
+        try {
+            const foundTerm = await database.Term.findAll({
+                attributes:{
+                    exclude :['classId','createdAt','updatedAt']
+                },
+                where:{
+                    [op.and]:[
+                        {studentId:StudentId},
+                        {term:Term},
+                        {classId:ClassId}
+                    ]
+                },
+                // order:[['']]
+            });
+            if (Object.values(foundTerm).length >=1){
+                return foundTerm;
+            }else{
                 return null;
             }
         } catch (error) {

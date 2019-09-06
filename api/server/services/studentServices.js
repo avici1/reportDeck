@@ -29,6 +29,22 @@ class studentServices {
             throw error;
         }
     }
+    static async getStudentById(searchParam) {
+        try {
+            const foundStudent = await database.Students.findAll({
+                where :{
+                    matricule :searchParam
+                }
+               
+            });
+            if( foundStudent){
+                return foundStudent;
+            }
+            return null;
+        } catch (error) {
+            throw error;
+        }
+    }
     static async UpdateStudent(id, Updated) {
         try {
             const updateStudent = await database.Students.update(Updated, { where: { matricule: id } })

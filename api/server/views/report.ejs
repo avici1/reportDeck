@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Report Form</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        /* table th {
+            width: auto !important;
+        } */
+        table tr {
+            line-height: 5px;
+            min-height: 5px;
+            height: 5px !important;
+        }
+
+        p {
+            line-height: 5px;
+        }
+
+        img {
+            max-height: 100px;
+        }
+
+        .image {
+            margin: 0 15px 0 auto !important;
+            padding: 0 !important;
+        }
+
+        .semi-table {
+            margin: 0 2px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid my-2">
+        <div class="row">
+            <div class="col-sm-3 mt-3 mr-auto font-weight-bold">
+                <p>REPUBLIC OF RWANDA</p>
+                <p>MINISTRY OF EDUCATION</p>
+                <p>COLLEGE SAINT ANDRE</p>
+            </div>
+            <div class="col-sm-3 ml-auto text-right">
+                <span>Collegesaintandre@gmail.com</span>
+                <span>+250784662755</span>
+            </div>
+        </div>
+
+        <div class="border mt-4 mb-2">
+            <h3 class="text-center font-weight-bold"><u>STUDENT REPORT FOR TERM </u></h3>
+        </div>
+
+        <div class="row semi-table">
+            <div class="col-sm-2 font-weight-bold my-auto">
+                <p>SchoolYear : </p>
+                <p>Section :</p>
+                <p>Class:</p>
+                <p>StudentId:</p>
+                <p>StudentNames:</p>
+            </div>
+            <div class="col-sm-2 my-auto">
+                <p> <%= date.getFullYear() %></p>
+                <p><%= classData.classLevel %></p>
+                <p><%= studentData.matricule %></p>
+                <p class="font-weight-bold"><i><%=studentData.names%></i></p>
+            </div>
+            <div class="image ml-auto">
+                <img src="rep.jpg" class="img-fluid">
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row border semi-table">
+                <div class="col-sm-3 text-center border-right">
+                    <h5 class="mt-2 font-weight-bold">Branches</h5>
+                </div>
+                <div class="col-sm-3">
+                    <div class="row text-center">
+                        <div class="col border-bottom border-right">
+                            <b>Class Tests</b>
+                        </div>
+                    </div>
+                    <div class="row text-center font-italic">
+                        <div class="col-sm-6 border-right">
+                            Marks
+                        </div>
+                        <div class="col-sm-6 border-right">
+                            Maximum
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="row text-center">
+                        <div class="col border-bottom border-right">
+                            <b>Exams</b>
+                        </div>
+                    </div>
+                    <div class="row text-center font-italic">
+                        <div class="col-sm-6 border-right">
+                            Marks
+                        </div>
+                        <div class="col-sm-6 border-right">
+                            Maximum
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="row text-center">
+                        <div class="col border-bottom border-right">
+                            <b>TOTAL</b>
+                        </div>
+                    </div>
+                    <div class="row text-center font-italic">
+                        <div class="col-sm-6 border-right font-weight-bold">
+                            Marks
+                        </div>
+                        <div class="col-sm-6 border-right font-weight-bold">
+                            Maximum
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <b><i>Combination</i></b>
+            <div>
+                <table class="table table-bordered">
+                    <tbody>
+                        <% marks.forEach(function(data) { %>
+                        <tr>
+                            <td class="w-25" scope="col"><%=data.course%></td>
+                            <td style="width:12.5%" class="text-right" scope="col"><%= data.tj%></td>
+                            <td style="width:12.5%" class="text-right font-weight-bold" scope="col"><%=data.maxTj%></td>
+                            <td style="width:12.5%" class="text-right" scope="col"><%= data.exam%></td>
+                            <td style="width:12.5%" class="text-right font-weight-bold" scope="col"><%= data.maxExam%>
+                            </td>
+                            <td style="width:12.5%" class="text-right" scope="col">67</td>
+                            <td style="width:12.5%" class="text-right font-weight-bold" scope="col">67</td>
+                        </tr>
+                        <% }); %>
+
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td class="w-25" scope="col"> <b>TOTAL</b> </td>
+                            <td style="width:12.5%" class="text-right" scope="col">14</td>
+                            <td style="width:12.5%" class="text-right font-weight-bold" scope="col">20</td>
+                            <td style="width:12.5%" class="text-right" scope="col">11</td>
+                            <td style="width:12.5%" class="text-right font-weight-bold" scope="col">20</td>
+                            <td style="width:12.5%" class="text-right" scope="col">25</td>
+                            <td style="width:12.5%" class="text-right font-weight-bold" scope="col">40</td>
+                        </tr>
+                        <tr>
+                            <td class="w-25" scope="col"> Percentage </td>
+                            <td class="border-right-0 border-left-0"></td>
+                            <td class="border-right-0 border-left-0"></td>
+                            <td class="border-right-0 border-left-0 text-center"><%= totals_.percentage%> %</td>
+                            <td class="border-right-0 border-left-0"></td>
+                            <td class="border-right-0 border-left-0"></td>
+                            <td class="border-right-0 border-left-0"></td>
+                        </tr>
+                        <tr>
+                            <td class="w-25" scope="col"> Rank </td>
+                            <td class="border-right-0 border-left-0"></td>
+                            <td class="border-right-0 border-left-0"></td>
+                            <td class="border-right-0 border-left-0 text-center">4/46</td>
+                            <td class="border-right-0 border-left-0"></td>
+                            <td class="border-right-0 border-left-0"></td>
+                            <td class="border-right-0 border-left-0"></td>
+                        </tr>
+                    </tbody>
+
+                </table>
+                <div class="row border semi-table">
+                    <div class="col mt-2 py-2">
+                        <p>Class Teacher's Signature: </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

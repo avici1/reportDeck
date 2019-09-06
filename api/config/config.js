@@ -12,6 +12,7 @@ module.exports ={
         username:"report_deck",
         password:"nAdia123",
         host:"localhost",
+        port:"3305",
         database:"report_deck_dev",
         dialect: "mysql",
         operatorsAliases:false
