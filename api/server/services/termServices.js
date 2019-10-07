@@ -4,8 +4,8 @@ const op = sequelize.Op;
 class termServices {
     static async addNew(newEntry) {
         try {
-            const added = await database.Term.create(newEntry);
-            if (Object.values(added).length > 1) {
+            const added = await database.Term.bulkCreate(newEntry);
+            if (added) {
                 return added;
             }
             return null;
@@ -47,7 +47,7 @@ class termServices {
         try {
             return await database.Term.findAll({
                 attributes: {
-                    exclude: ['classId', 'createdAt', 'updatedAt']
+                    exclude: [ 'createdAt', 'updatedAt']
                 }
             });
 

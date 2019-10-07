@@ -20,9 +20,9 @@ module.exports = {
       courseName: {
         type: Sequelize.STRING
       },
-      classId:{
-        type:Sequelize.STRING
-      },
+      // classId:{
+      //   type:Sequelize.STRING
+      // },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

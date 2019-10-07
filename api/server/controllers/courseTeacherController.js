@@ -11,11 +11,11 @@ class courseTeacherController {
         try {
             
             const one = await ctService.getOne_(id);
-            if (Object.values(one).length >= 1) {
+            if (one) {
                 util.setSuccess("Found", 200, one);
                 return util.send(res);
             } else {
-                util.setError(400, "Can't find what You are looking for");
+                util.setError(400, "Can't find records related to the given search");
                 return util.send(res);
             }
         } catch (error) {

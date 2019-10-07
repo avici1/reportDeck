@@ -1,6 +1,7 @@
 import ClassService from '../services/classServices';
 import Util from '../utils/Util';
 import classService from '../services/classServices';
+import courseTeacherService from '../services/courseTeacherService';
 const util = new Util();
 
 class ClassController {
@@ -47,7 +48,8 @@ class ClassController {
         } else {
             try {
                 const deletedClass = await classService.deleteClass(id);
-                if (!deletedClass) {
+                const deletedCourseTeacher = await courseTeacherService.deleter(id);
+                if (!deletedClass || !deletedCourseTeacher) {
                     util.setError(404, `Class with Id ${id} not found`);
                     return util.send(res);
                 } else {

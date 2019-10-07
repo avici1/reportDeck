@@ -17,6 +17,12 @@ module.exports = {
       staffTitle: {
         type: Sequelize.STRING
       },
+      staffDob :{
+        type:Sequelize.STRING
+      },
+      staffStudyLevel :{
+        type:Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

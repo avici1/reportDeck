@@ -37,13 +37,15 @@ class staffController {
     }
     static async AddNewStaff(req, res) {
         try {
-            const newStaff = req.body;
             const date = new Date();
             const staffId_ = req.body.staffNames.slice(0,3) + '-' + Math.floor(Math.random() * 100) +'-'+date.getFullYear();
             const newstaffToAdd = {
                 staffId : staffId_,
                 staffNames : req.body.staffNames,
-                staffTitle : req.body.staffTitle
+                staffTitle : req.body.staffTitle,
+                staffDob :req.body.staffDob,
+                staffStudyLevel: req.body.staffStudyLevel
+
             };
             if (!req.body.staffNames || !req.body.staffTitle) {
                 util.setError(400, "Please send complete information");

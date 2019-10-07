@@ -3,7 +3,9 @@ module.exports = (sequelize, DataTypes) => {
   const Staff = sequelize.define('Staff', {
     staffId: DataTypes.STRING,
     staffNames: DataTypes.STRING,
-    staffTitle: DataTypes.STRING
+    staffTitle: DataTypes.STRING,
+    staffDob:DataTypes.STRING,
+    staffStudyLevel:DataTypes.STRING
   }, {});
   Staff.associate = function(models) {
     // associations can be defined here

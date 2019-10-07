@@ -11,11 +11,11 @@ class decisionsController {
         try {
 
             const one = await decisionService.getOne(id);
-            if (Object.values(one).length >= 1) {
+            if (one) {
                 util.setSuccess("Found", 200, one);
                 return util.send(res);
             } else {
-                util.setError(400, "A problem occured");
+                util.setError(400, "Search empty");
                 return util.send(res);
             }
         } catch (error) {
@@ -42,7 +42,7 @@ class decisionsController {
     static async get_specific_decisions(req, res) {
         try {
             const decisions = await decisionService.get_defined_decisions();
-            if (Object.values(decisions).length >= 1) {
+            if (decisions) {
                 util.setSuccess(" Found decisions", 200, decisions);
                 return util.send(res);
             } else {

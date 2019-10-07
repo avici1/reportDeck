@@ -17,10 +17,11 @@ class staffService {
             const staff = await database.Staff.findAll({
                 attributes :{exclude :['id','createdAt','updatedAt']},
                 where: {
+
                     [op.or]: [
-                        { staffId: { [op.like]: '%' + searchParam + '%' } },
-                        { staffNames: { [op.like]: '%' + searchParam + '%' } },
-                        { staffTitle: { [op.like]: '%' + searchParam + '%' } },
+                        { staffId: { [op.iLike]: '%' + searchParam + '%' } },
+                        { staffNames: { [op.iLike]: '%' + searchParam + '%' } },
+                        { staffTitle: { [op.iLike]: '%' + searchParam + '%' } },
                         
                     ]
                 }

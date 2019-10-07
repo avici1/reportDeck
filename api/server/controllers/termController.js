@@ -1,8 +1,8 @@
 import termService from '../services/termServices';
 import studentService from '../services/studentServices';
-import schoolService from '../services/schoolparameterServices';
 import classService from '../services/classServices';
 import Util from '../utils/Util';
+import termServices from '../services/termServices';
 
 const util = new Util();
 class termController {
@@ -30,10 +30,10 @@ class termController {
         try {
             const one = await termService.getOneComplex(id);
             if (!one) {
-                util.setError(400, "Term can't be found");
+                util.setError(400, "Record can't be found");
                 return util.send(res);
             } else {
-                util.setSuccess("Term found", 200, one);
+                util.setSuccess("Record found", 200, one);
                 return util.send(res);
             }
         } catch (error) {
@@ -135,21 +135,25 @@ class termController {
     }
     static async addNewRecord(req, res) {
         try {
-            const markId_ = req.body.studentId+'-'+req.body.course+'-'+req.body.classId+'-'+req.body.term
-            const newRecord = {
-                studentId:req.body.studentId,
-                studentNames:req.body.studentNames,
-                maxTj: req.body.maxTj,
-                tj:req.body.tj,
-                maxExam: req.body.maxExam,
-                exam: req.body.exam,
-                classId:req.body.classId,
-                course:req.body.course,
-                term:req.body.term,
-                markId:markId_
-            }
-            //  const lookUp = await termService.getOneComplex(req.query.classId, req.query.term, req.query.studentId, req.query.course);
-            const added = await termService.addNew(newRecord);
+            let bulkData = [];
+            req.body.forEach(data => {
+                const markId_ = data.studentId+'-'+data.course+'-'+data.classId+'-'+data.term;
+                const newRecord = {
+                    studentId:data.studentId,
+                    studentNames:data.studentNames,
+                    maxTj: data.maxTj,
+                    tj:data.tj,
+                    maxExam: data.maxExam,
+                    exam: data.exam,
+                    classId:data.classId,
+                    course:data.course,
+                    term:data.term,
+                    markId:markId_
+                };
+                bulkData.push(newRecord);
+               
+            });
+           const added = await termServices.addNew(bulkData);
             if (Object.values(added).length >= 1) {
                 util.setSuccess("Added successfully", 200, added);
                 return util.send(res);

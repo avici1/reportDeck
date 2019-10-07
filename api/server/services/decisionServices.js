@@ -68,7 +68,7 @@ class decisionService {
         try {
             
             const foundTerm = await database.decision.findOne({
-                attributes :[ 'year','studentId','studentNames','decision','decisionId'],
+                attributes :[ 'year','studentId','studentNames','decision','decisionId','classId'],
                 where: {
                     classId: id
                 }
