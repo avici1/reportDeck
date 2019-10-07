@@ -18,16 +18,8 @@ module.exports ={
         operatorsAliases:false
     },
     production: {
-        username : "dymspuvvuznowg",
-        password : "5d922a9590ae71f0da5d55c2ab3ad034fbf5169bd9c4e0c3be81832713e3eda0",
-        port:5432,
-        host :"ec2-54-235-180-123.compute-1.amazonaws.com",
-        database: "d93o9gq5ogq04v",
-        dialect: "postgres",
-        dialectOptions:{
-            ssl:true
-        },
-        operatorsAliases: false
+      use_env_varible : process.env.DATABASE_URL,
+      dialect : 'postgres'
     }
    
-}
+};
